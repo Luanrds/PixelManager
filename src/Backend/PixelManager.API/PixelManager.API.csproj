@@ -11,13 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\PixelManager.Communication\PixelManager.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\PixelManager.Exceptions\PixelManager.Exceptions.csproj" />
     <ProjectReference Include="..\PixelManager.Application\PixelManager.Application.csproj" />
+    <ProjectReference Include="..\PixelManager.Infrastructure\PixelManager.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
