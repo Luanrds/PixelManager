@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Shared\PixelManager.Communication\PixelManager.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\PixelManager.Exceptions\PixelManager.Exceptions.csproj" />
     <ProjectReference Include="..\PixelManager.Domain\PixelManager.Domain.csproj" />
