@@ -3,7 +3,7 @@
 namespace PixelManager.Communication.Responses;
 public class ResponseMetadadosDeImagemJson
 {
-	public long Id { get; set; }
+	public string Id { get; set; } = string.Empty;
 	public string NomeDoArquivo { get; set; } = string.Empty;
 	public TipoArquivo TipoDoArquivo { get; set; }
 	public int Altura { get; set; }
