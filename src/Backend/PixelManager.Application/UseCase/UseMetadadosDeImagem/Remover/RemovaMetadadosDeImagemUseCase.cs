@@ -12,7 +12,7 @@ internal class RemovaMetadadosDeImagemUseCase : IRemovaMetadadosDeImagemUseCase
 		_repository = repository;
 	}
 
-	public async Task Execute(long id)
+	public async Task Execute(string id)
 	{
 		MetadadosDeImagem? metadados = await _repository.ConsultePorId(id) 
 			?? throw new RecursoNaoEncontradoException();

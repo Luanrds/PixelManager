@@ -14,7 +14,7 @@ public class ConsulteMetadadosDeImagemPorIdUseCase : IConsulteMetadadosDeImagemP
 		_repository = repository;
 	}
 
-	public async Task<ResponseMetadadosDeImagemJson> Execute(long id)
+	public async Task<ResponseMetadadosDeImagemJson> Execute(string id)
 	{
 		MetadadosDeImagem? metadados = await _repository.ConsultePorId(id) 
 			?? throw new RecursoNaoEncontradoException();

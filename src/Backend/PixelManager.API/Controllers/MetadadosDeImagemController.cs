@@ -39,24 +39,24 @@ public class MetadadosDeImagemController : PixelManagerBaseController
 	}
 
 	[HttpGet]
-	[Route("{id}")]
+	[Route("{*id}")]
 	[ProducesResponseType(typeof(ResponseMetadadosDeImagemJson), StatusCodes.Status200OK)]
 	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status404NotFound)]
 	public async Task<IActionResult> ConsultePorId(
 	[FromServices] IConsulteMetadadosDeImagemPorIdUseCase useCase,
-	[FromRoute] long id)
+	[FromRoute] string id)
 	{
 		ResponseMetadadosDeImagemJson response = await useCase.Execute(id);
 		return Ok(response);
 	}
 
 	[HttpPut]
-	[Route("{id}")]
+	[Route("{*id}")]
 	[ProducesResponseType(StatusCodes.Status204NoContent)]
 	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status404NotFound)]
 	public async Task<IActionResult> Atualize(
 	[FromServices] IAtualizeMetadadosDeImagemUseCase useCase,
-	[FromRoute] long id,
+	[FromRoute] string id,
 	[FromBody] RequestMetadadosDeImagemJson request)
 	{
 		await useCase.Execute(id, request);
@@ -64,12 +64,12 @@ public class MetadadosDeImagemController : PixelManagerBaseController
 	}
 
 	[HttpDelete]
-	[Route("{id}")]
+	[Route("{*id}")]
 	[ProducesResponseType(StatusCodes.Status204NoContent)]
 	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status404NotFound)]
 	public async Task<IActionResult> Remove(
 	[FromServices] IRemovaMetadadosDeImagemUseCase useCase,
-	[FromRoute] long id)
+	[FromRoute] string id)
 	{
 		await useCase.Execute(id);
 		return NoContent();
