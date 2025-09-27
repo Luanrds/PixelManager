@@ -21,7 +21,7 @@ public class MetadadosDeImagemRepository : IMetadadosDeImagemRepository
 
 	public void Atualize(MetadadosDeImagem metadados)
 	{
-		var index = _dbContext.MetadadosDeImagens.FindIndex(m => m.Id == metadados.Id);
+		int index = _dbContext.MetadadosDeImagens.FindIndex(m => m.Id == metadados.Id);
 
 		if (index != -1)
 		{

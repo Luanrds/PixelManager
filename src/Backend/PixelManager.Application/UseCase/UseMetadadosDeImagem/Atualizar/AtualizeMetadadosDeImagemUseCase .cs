@@ -22,7 +22,7 @@ public class AtualizeMetadadosDeImagemUseCase :IAtualizeMetadadosDeImagemUseCase
 		ValidationResult resultado = _validator.Validate(request);
 		if (!resultado.IsValid)
 		{
-			var mensagensDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
+			List<string> mensagensDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
 			throw new ErrosDeValidacaoException(mensagensDeErro);
 		}
 
