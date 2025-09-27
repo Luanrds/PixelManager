@@ -1,56 +1,57 @@
 ﻿using PixelManager.Domain.Entidades;
 using PixelManager.Domain.Repositorios;
-using PixelManager.Infrastructure.Contexto;
+using Raven.Client.Documents;
+using Raven.Client.Documents.Session;
 
 namespace PixelManager.Infrastructure.Repositorios;
 public class MetadadosDeImagemRepository : IMetadadosDeImagemRepository
 {
-	private const long ID_INICIAL = 1L;
-	private readonly InMemoryDatabase _dbContext;
+	//private const long ID_INICIAL = 1L;
+	private readonly IDocumentStore _store;
 
-	public MetadadosDeImagemRepository(InMemoryDatabase dbContext)
+	public MetadadosDeImagemRepository(IDocumentStore store)
 	{
-		_dbContext = dbContext;
+		_store = store;
 	}
+
 	public async Task Adicione(MetadadosDeImagem metadados)
 	{
-		metadados.Id = GerarProximoId();
-		_dbContext.MetadadosDeImagens.Add(metadados);
-		await Task.CompletedTask;
+		using IAsyncDocumentSession session = _store.OpenAsyncSession();
+		await session.StoreAsync(metadados);
+		await session.SaveChangesAsync();
 	}
 
-	public void Atualize(MetadadosDeImagem metadados)
+	public async Task Atualize()
 	{
-		int index = _dbContext.MetadadosDeImagens.FindIndex(m => m.Id == metadados.Id);
-
-		if (index != -1)
-		{
-			_dbContext.MetadadosDeImagens[index] = metadados;
-		}
+		using IAsyncDocumentSession session = _store.OpenAsyncSession();
+		await session.SaveChangesAsync();
 	}
 
-	public async Task<MetadadosDeImagem?> ConsultePorId(long id)
+	public async Task<MetadadosDeImagem?> ConsultePorId(string id)
 	{
-		return await Task.FromResult(_dbContext.MetadadosDeImagens.FirstOrDefault(m => m.Id == id));
+		using IAsyncDocumentSession session = _store.OpenAsyncSession();
+		return await session.LoadAsync<MetadadosDeImagem>(id);
 	}
 
 	public async Task<IList<MetadadosDeImagem>> ConsulteTodos()
 	{
-		return await Task.FromResult(_dbContext.MetadadosDeImagens.ToList());
+		using IAsyncDocumentSession session = _store.OpenAsyncSession();
+		return await session.Query<MetadadosDeImagem>().ToListAsync();
 	}
 
-	public async Task Remova(long id)
+	public async Task Remova(string id)
 	{
 		MetadadosDeImagem? metadados = await ConsultePorId(id);
 		if (metadados != null)
 		{
-			_dbContext.MetadadosDeImagens.Remove(metadados);
+			using IAsyncDocumentSession session = _store.OpenAsyncSession();
+			session.Delete(id);
+			await session.SaveChangesAsync();
 		}
 	}
 
-	private long GerarProximoId() =>
-		_dbContext.MetadadosDeImagens.Count == 0
-			? ID_INICIAL
-				: _dbContext.MetadadosDeImagens.Max(e => e.Id) + 1;
-
+	//private long GerarProximoId() =>
+	//	_dbContext.MetadadosDeImagens.Count == 0
+	//		? ID_INICIAL
+	//			: _dbContext.MetadadosDeImagens.Max(e => e.Id) + 1;
 }
