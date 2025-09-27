@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C71C3BE4-5D06-4298-8C3A-9CBE90606F8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E0B4E5AB-CC20-4EB7-8CF6-F9D17D2B55D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5AD31483-5B0B-4848-80A8-F186D0936238}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{2256B82C-44B5-4246-ACD2-79C67BB58735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.API", "src\Backend\PixelManager.API\PixelManager.API.csproj", "{1508E8F9-A6DD-4557-9635-B64A5B5791C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1508E8F9-A6DD-4557-9635-B64A5B5791C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1508E8F9-A6DD-4557-9635-B64A5B5791C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1508E8F9-A6DD-4557-9635-B64A5B5791C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1508E8F9-A6DD-4557-9635-B64A5B5791C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5AD31483-5B0B-4848-80A8-F186D0936238} = {C71C3BE4-5D06-4298-8C3A-9CBE90606F8A}
+		{2256B82C-44B5-4246-ACD2-79C67BB58735} = {C71C3BE4-5D06-4298-8C3A-9CBE90606F8A}
+		{1508E8F9-A6DD-4557-9635-B64A5B5791C7} = {2256B82C-44B5-4246-ACD2-79C67BB58735}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA56B416-B933-45DA-9023-089961D8645B}
+	EndGlobalSection
+EndGlobal
