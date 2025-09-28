@@ -6,7 +6,6 @@ using Raven.Client.Documents.Session;
 namespace PixelManager.Infrastructure.Repositorios;
 public class MetadadosDeImagemRepository : IMetadadosDeImagemRepository
 {
-	//private const long ID_INICIAL = 1L;
 	private readonly IDocumentStore _store;
 
 	public MetadadosDeImagemRepository(IDocumentStore store)
@@ -50,9 +49,4 @@ public class MetadadosDeImagemRepository : IMetadadosDeImagemRepository
 			await session.SaveChangesAsync();
 		}
 	}
-
-	//private long GerarProximoId() =>
-	//	_dbContext.MetadadosDeImagens.Count == 0
-	//		? ID_INICIAL
-	//			: _dbContext.MetadadosDeImagens.Max(e => e.Id) + 1;
 }
