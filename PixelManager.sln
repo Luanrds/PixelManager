@@ -11,17 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5AD314
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{2256B82C-44B5-4246-ACD2-79C67BB58735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.API", "src\Backend\PixelManager.API\PixelManager.API.csproj", "{1508E8F9-A6DD-4557-9635-B64A5B5791C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelManager.API", "src\Backend\PixelManager.API\PixelManager.API.csproj", "{1508E8F9-A6DD-4557-9635-B64A5B5791C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.Application", "src\Backend\PixelManager.Application\PixelManager.Application.csproj", "{A98D8D1B-2CEE-4948-ACB4-D5F36F4063A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelManager.Application", "src\Backend\PixelManager.Application\PixelManager.Application.csproj", "{A98D8D1B-2CEE-4948-ACB4-D5F36F4063A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.Domain", "src\Backend\PixelManager.Domain\PixelManager.Domain.csproj", "{DD287981-9CDF-47F3-B265-959F72E96E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelManager.Domain", "src\Backend\PixelManager.Domain\PixelManager.Domain.csproj", "{DD287981-9CDF-47F3-B265-959F72E96E1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.Infrastructure", "src\Backend\PixelManager.Infrastructure\PixelManager.Infrastructure.csproj", "{A35D2818-75BD-4A1C-A79E-07CB3264CFF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelManager.Infrastructure", "src\Backend\PixelManager.Infrastructure\PixelManager.Infrastructure.csproj", "{A35D2818-75BD-4A1C-A79E-07CB3264CFF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.Communication", "src\Shared\PixelManager.Communication\PixelManager.Communication.csproj", "{75D4AF43-7A11-4D66-9697-7C41EF1078EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelManager.Communication", "src\Shared\PixelManager.Communication\PixelManager.Communication.csproj", "{75D4AF43-7A11-4D66-9697-7C41EF1078EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelManager.Exceptions", "src\Shared\PixelManager.Exceptions\PixelManager.Exceptions.csproj", "{2EEC6290-1E80-4F32-B9DA-F44BB27BCB81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelManager.Exceptions", "src\Shared\PixelManager.Exceptions\PixelManager.Exceptions.csproj", "{2EEC6290-1E80-4F32-B9DA-F44BB27BCB81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{56DF34E6-6343-47D5-90A0-E6FD0498B6D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommomTestUtilities", "tests\CommomTestUtilities\CommomTestUtilities.csproj", "{9FAD923B-FE84-4DFE-8525-4CDE4D6ADA99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,14 @@ Global
 		{2EEC6290-1E80-4F32-B9DA-F44BB27BCB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EEC6290-1E80-4F32-B9DA-F44BB27BCB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EEC6290-1E80-4F32-B9DA-F44BB27BCB81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56DF34E6-6343-47D5-90A0-E6FD0498B6D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56DF34E6-6343-47D5-90A0-E6FD0498B6D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56DF34E6-6343-47D5-90A0-E6FD0498B6D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56DF34E6-6343-47D5-90A0-E6FD0498B6D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FAD923B-FE84-4DFE-8525-4CDE4D6ADA99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FAD923B-FE84-4DFE-8525-4CDE4D6ADA99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FAD923B-FE84-4DFE-8525-4CDE4D6ADA99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FAD923B-FE84-4DFE-8525-4CDE4D6ADA99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +78,8 @@ Global
 		{A35D2818-75BD-4A1C-A79E-07CB3264CFF7} = {2256B82C-44B5-4246-ACD2-79C67BB58735}
 		{75D4AF43-7A11-4D66-9697-7C41EF1078EF} = {5AD31483-5B0B-4848-80A8-F186D0936238}
 		{2EEC6290-1E80-4F32-B9DA-F44BB27BCB81} = {5AD31483-5B0B-4848-80A8-F186D0936238}
+		{56DF34E6-6343-47D5-90A0-E6FD0498B6D9} = {E0B4E5AB-CC20-4EB7-8CF6-F9D17D2B55D5}
+		{9FAD923B-FE84-4DFE-8525-4CDE4D6ADA99} = {E0B4E5AB-CC20-4EB7-8CF6-F9D17D2B55D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA56B416-B933-45DA-9023-089961D8645B}
