@@ -6,6 +6,6 @@ public interface IMetadadosDeImagemRepository
 	Task Adicione(MetadadosDeImagem metadados);
 	Task<IList<MetadadosDeImagem>> ConsulteTodos();
 	Task<MetadadosDeImagem?> ConsultePorId(string id);
-	Task Atualize();
+	Task Atualize(MetadadosDeImagem metadados);
 	Task Remova(string id);
 }

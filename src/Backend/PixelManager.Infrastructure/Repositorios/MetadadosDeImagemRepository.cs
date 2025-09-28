@@ -21,9 +21,10 @@ public class MetadadosDeImagemRepository : IMetadadosDeImagemRepository
 		await session.SaveChangesAsync();
 	}
 
-	public async Task Atualize()
+	public async Task Atualize(MetadadosDeImagem metadados)
 	{
 		using IAsyncDocumentSession session = _store.OpenAsyncSession();
+		await session.StoreAsync(metadados);
 		await session.SaveChangesAsync();
 	}
 

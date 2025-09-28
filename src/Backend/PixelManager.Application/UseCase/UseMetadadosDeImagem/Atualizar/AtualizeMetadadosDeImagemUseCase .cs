@@ -34,6 +34,6 @@ public class AtualizeMetadadosDeImagemUseCase :IAtualizeMetadadosDeImagemUseCase
 		metadados.Altura = request.Altura;
 		metadados.Comprimento = request.Comprimento;
 
-		_repository.Atualize();
+		await _repository.Atualize(metadados);
 	}
 }
