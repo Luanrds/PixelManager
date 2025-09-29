@@ -4,7 +4,7 @@ using FluentValidation.Results;
 using PixelManager.Application.Validadores;
 
 namespace Validators.Test.MetadadosDeImagem.Criar;
-public class MetadadosDeImagemValidatorTest
+public class CrieMetadadosDeImagemValidatorTest
 { 
 	[Fact]
 	public void Success()
