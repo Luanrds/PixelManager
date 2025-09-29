@@ -12,4 +12,10 @@ public class ResponseErros
 			error
 		};
 	}
+
+	public ResponseErros()
+	{
+		Errors = new List<string>();
+	}
+
 }

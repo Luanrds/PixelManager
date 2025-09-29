@@ -1,5 +1,5 @@
 ﻿namespace PixelManager.Application.UseCase.UseMetadadosDeImagem.Remover;
 public interface IRemovaMetadadosDeImagemUseCase
 {
-	Task Execute(long id);
+	Task Execute(string id);
 }

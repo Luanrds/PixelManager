@@ -1,5 +1,5 @@
 ﻿namespace PixelManager.Domain.Entidades;
 public abstract class EntidadeBase
 {
-	public long Id { get; set; }
+	public string Id { get; set; } = string.Empty;
 }

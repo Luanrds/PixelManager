@@ -3,7 +3,7 @@ using PixelManager.Domain.Repositorios;
 using PixelManager.Exceptions.Exceptions;
 
 namespace PixelManager.Application.UseCase.UseMetadadosDeImagem.Remover;
-internal class RemovaMetadadosDeImagemUseCase : IRemovaMetadadosDeImagemUseCase
+public class RemovaMetadadosDeImagemUseCase : IRemovaMetadadosDeImagemUseCase
 {
 	private readonly IMetadadosDeImagemRepository _repository;
 
@@ -12,7 +12,7 @@ internal class RemovaMetadadosDeImagemUseCase : IRemovaMetadadosDeImagemUseCase
 		_repository = repository;
 	}
 
-	public async Task Execute(long id)
+	public async Task Execute(string id)
 	{
 		MetadadosDeImagem? metadados = await _repository.ConsultePorId(id) 
 			?? throw new RecursoNaoEncontradoException();

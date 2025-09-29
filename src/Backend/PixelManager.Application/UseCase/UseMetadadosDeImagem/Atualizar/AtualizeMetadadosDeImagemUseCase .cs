@@ -17,7 +17,7 @@ public class AtualizeMetadadosDeImagemUseCase :IAtualizeMetadadosDeImagemUseCase
 		_validator = validator;
 	}
 
-	public async Task Execute(long id, RequestMetadadosDeImagemJson request)
+	public async Task Execute(string id, RequestMetadadosDeImagemJson request)
 	{
 		ValidationResult resultado = _validator.Validate(request);
 		if (!resultado.IsValid)
@@ -34,6 +34,6 @@ public class AtualizeMetadadosDeImagemUseCase :IAtualizeMetadadosDeImagemUseCase
 		metadados.Altura = request.Altura;
 		metadados.Comprimento = request.Comprimento;
 
-		_repository.Atualize(metadados);
+		await _repository.Atualize(metadados);
 	}
 }
