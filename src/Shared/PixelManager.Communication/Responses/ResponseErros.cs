@@ -7,15 +7,15 @@ public class ResponseErros
 
 	public ResponseErros(string error)
 	{
-		Errors = new List<string>
-		{
+		Errors =
+		[
 			error
-		};
+		];
 	}
 
 	public ResponseErros()
 	{
-		Errors = new List<string>();
+		Errors = [];
 	}
 
 }

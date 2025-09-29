@@ -5,14 +5,9 @@ using System.Net;
 using System.Net.Http.Json;
 
 namespace WebApi.Test.MetadadosDeImagem.Consultar;
-public class ConsulteTodosTest : IClassFixture<CustomWebApplicationFactory>
+public class ConsulteTodosTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
-	private readonly HttpClient _httpClient;
-
-	public ConsulteTodosTest(CustomWebApplicationFactory factory)
-	{
-		_httpClient = factory.CreateClient();
-	}
+	private readonly HttpClient _httpClient = factory.CreateClient();
 
 	[Fact]
 	public async Task Success()

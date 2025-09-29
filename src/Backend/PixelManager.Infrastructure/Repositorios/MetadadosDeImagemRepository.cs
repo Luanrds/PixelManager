@@ -4,14 +4,9 @@ using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 
 namespace PixelManager.Infrastructure.Repositorios;
-public class MetadadosDeImagemRepository : IMetadadosDeImagemRepository
+public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeImagemRepository
 {
-	private readonly IDocumentStore _store;
-
-	public MetadadosDeImagemRepository(IDocumentStore store)
-	{
-		_store = store;
-	}
+	private readonly IDocumentStore _store = store;
 
 	public async Task Adicione(MetadadosDeImagem metadados)
 	{

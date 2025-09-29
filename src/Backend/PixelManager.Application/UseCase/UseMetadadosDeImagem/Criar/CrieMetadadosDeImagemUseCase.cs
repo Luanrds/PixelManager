@@ -8,16 +8,10 @@ using PixelManager.Domain.Repositorios;
 using PixelManager.Exceptions.Exceptions;
 
 namespace PixelManager.Application.UseCase.UseMetadadosDeImagem.Criar;
-public class CrieMetadadosDeImagemUseCase : ICrieMetadadosDeImagemUseCase
+public class CrieMetadadosDeImagemUseCase(IMetadadosDeImagemRepository repository, MetadadosDeImagemValidator validator) : ICrieMetadadosDeImagemUseCase
 {
-	private readonly IMetadadosDeImagemRepository _repository;
-	private readonly MetadadosDeImagemValidator _validator;
-
-	public CrieMetadadosDeImagemUseCase(IMetadadosDeImagemRepository repository, MetadadosDeImagemValidator validator)
-	{
-		_repository = repository;
-		_validator = validator;
-	}
+	private readonly IMetadadosDeImagemRepository _repository = repository;
+	private readonly MetadadosDeImagemValidator _validator = validator;
 
 	public async Task<ResponseMetadadosDeImagemJson> Execute(RequestMetadadosDeImagemJson request)
 	{

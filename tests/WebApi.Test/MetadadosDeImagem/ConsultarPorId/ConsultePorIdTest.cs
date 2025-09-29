@@ -1,23 +1,13 @@
 ﻿using CommomTestUtilities.Requests;
 using FluentAssertions;
 using PixelManager.Communication.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http.Json;
 
 namespace WebApi.Test.MetadadosDeImagem.ConsultarPorId;
-public class ConsultePorIdTest : IClassFixture<CustomWebApplicationFactory>
+public class ConsultePorIdTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
-	private readonly HttpClient _httpClient;
-
-	public ConsultePorIdTest(CustomWebApplicationFactory factory)
-	{
-		_httpClient = factory.CreateClient();
-	}
+	private readonly HttpClient _httpClient = factory.CreateClient();
 
 	[Fact]
 	public async Task Success()
