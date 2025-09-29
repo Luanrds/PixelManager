@@ -3,7 +3,7 @@ using PixelManager.Domain.Repositorios;
 using PixelManager.Exceptions.Exceptions;
 
 namespace PixelManager.Application.UseCase.UseMetadadosDeImagem.Remover;
-internal class RemovaMetadadosDeImagemUseCase : IRemovaMetadadosDeImagemUseCase
+public class RemovaMetadadosDeImagemUseCase : IRemovaMetadadosDeImagemUseCase
 {
 	private readonly IMetadadosDeImagemRepository _repository;
 
