@@ -19,6 +19,6 @@ public static class InjecaoDeDependenciaExtensao
 
 			return EmbeddedServer.Instance.GetDocumentStore("PixelManagerDB");
 		});
-		services.AddSingleton<IMetadadosDeImagemRepository, MetadadosDeImagemRepository>();
+		services.AddScoped<IMetadadosDeImagemRepository, MetadadosDeImagemRepository>();
 	}
 }
