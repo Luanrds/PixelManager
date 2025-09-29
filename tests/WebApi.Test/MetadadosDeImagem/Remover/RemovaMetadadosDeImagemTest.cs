@@ -5,14 +5,9 @@ using System.Net;
 using System.Net.Http.Json;
 
 namespace WebApi.Test.MetadadosDeImagem.Remover;
-public class RemovaMetadadosDeImagemTest : IClassFixture<CustomWebApplicationFactory>
+public class RemovaMetadadosDeImagemTest(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
-	private readonly HttpClient _httpClient;
-
-	public RemovaMetadadosDeImagemTest(CustomWebApplicationFactory factory)
-	{
-		_httpClient = factory.CreateClient();
-	}
+	private readonly HttpClient _httpClient = factory.CreateClient();
 
 	[Fact]
 	public async Task Success()
