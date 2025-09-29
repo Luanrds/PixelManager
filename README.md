@@ -37,8 +37,6 @@ Execute a aplicação:
 
     `dotnet run`
 
-A API será iniciada e a documentação interativa (Swagger UI) estará disponível em http://localhost:5275/swagger.
-
 ## Estratégia de Testes
 A qualidade do software é assegurada por uma suíte de testes abrangente, dividida em três camadas estratégicas:
 
