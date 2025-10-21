@@ -24,15 +24,15 @@ public class MetadadosDeImagemController : PixelManagerBaseController
 	}
 
     [HttpGet]
-    [ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseListaPaginada<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
     public IActionResult ConsulteTodos(
-        [FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
-        [FromQuery] DtoFiltromMetadadosDeImagem filtro)
+            [FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
+            [FromQuery] DtoFiltromMetadadosDeImagem filtro)
     {
-        List<ResponseMetadadosDeImagemJson> response = useCase.Execute(filtro);
+        ResponseListaPaginada<ResponseMetadadosDeImagemJson> response = useCase.Execute(filtro);
 
-        if (response.Count != 0)
+        if (response.Dados.Count != 0)
         {
             return Ok(response);
         }
