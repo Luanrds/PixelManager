@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\PixelManager.Communication\PixelManager.Communication.csproj" />
     <ProjectReference Include="..\PixelManager.Domain\PixelManager.Domain.csproj" />
   </ItemGroup>
 
