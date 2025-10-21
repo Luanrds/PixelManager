@@ -65,22 +65,30 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
         return query.ObterPaginacao(sessao, filtro);
     }
 
-    private IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IDocumentSession sessao, DtoFiltromMetadadosDeImagem? filtro = null)
+    public IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IDocumentSession sessao, DtoFiltromMetadadosDeImagem? filtro = null)
     {
         filtro ??= new();
         var query = sessao.Query<MetadadosDeImagem>();
 
         if (!string.IsNullOrWhiteSpace(filtro.NomeDoArquivo))
-            query = query.Search(x => x.NomeDoArquivo, filtro.NomeDoArquivo);
+        {
+            query = query.ComNomeDoArquivo(filtro.NomeDoArquivo);
+        }
 
         if (filtro.TipoDoArquivo.HasValue)
-            query = query.Where(x => x.TipoDoArquivo == filtro.TipoDoArquivo.Value);
+        {
+            query = query.ComTipoDeArquivo(filtro.TipoDoArquivo.Value);
+        }
 
-        //if (filtro.DataDeCriacaoInicial.HasValue)
-        //    query = query.Where(x => x.DataDeCriacao >= filtro.DataDeCriacaoInicial.Value);
+        if (filtro.DataDeCriacaoInicial.HasValue)
+        {
+            query = query.ComDataDeCriacaoInicial(filtro.DataDeCriacaoInicial.Value);
+        }
 
-        //if (filtro.DataDeCriacaoFinal.HasValue)
-        //    query = query.Where(x => x.DataDeCriacao <= filtro.DataDeCriacaoFinal.Value);
+        if (filtro.DataDeCriacaoFinal.HasValue)
+        {
+            query = query.ComDataDeCriacaoFinal(filtro.DataDeCriacaoFinal.Value);
+        }
 
         return query;
     }
