@@ -6,6 +6,7 @@ using PixelManager.Application.UseCase.UseMetadadosDeImagem.Criar;
 using PixelManager.Application.UseCase.UseMetadadosDeImagem.Remover;
 using PixelManager.Communication.Request;
 using PixelManager.Communication.Responses;
+using PixelManager.Domain.Dto;
 
 namespace PixelManager.API.Controllers;
 
@@ -22,23 +23,24 @@ public class MetadadosDeImagemController : PixelManagerBaseController
 		return Created(string.Empty, response);
 	}
 
-	[HttpGet]
-	[ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
-	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
-	public async Task<IActionResult> ConsulteTodos(
-		[FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase)
-	{
-		List<ResponseMetadadosDeImagemJson> response = await useCase.Execute();
+    [HttpGet]
+    [ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
+    public IActionResult ConsulteTodos(
+        [FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
+        [FromQuery] DtoFiltromMetadadosDeImagem filtro)
+    {
+        List<ResponseMetadadosDeImagemJson> response = useCase.Execute(filtro);
 
-		if (response.Count != 0)
-		{
-			return Ok(response);
-		}
+        if (response.Count != 0)
+        {
+            return Ok(response);
+        }
 
-		return NoContent();
-	}
+        return NoContent();
+    }
 
-	[HttpGet]
+    [HttpGet]
 	[Route("{*id}")]
 	[ProducesResponseType(typeof(ResponseMetadadosDeImagemJson), StatusCodes.Status200OK)]
 	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status404NotFound)]
