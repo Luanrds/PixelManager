@@ -14,7 +14,7 @@ public static class InjecaoDeDependenciaExtensao
 			EmbeddedServer.Instance.StartServer(new ServerOptions
 			{
 				DataDirectory = "RavenDBData",
-				ServerUrl = "http://127.0.0.1:8080"
+				ServerUrl = "http://127.0.0.1:8084"
 			});
 
 			return EmbeddedServer.Instance.GetDocumentStore("PixelManagerDB");
