@@ -1,5 +1,4 @@
-﻿using PixelManager.Domain.Entidades;
-using PixelManager.Domain.Enum;
+﻿using PixelManager.Domain.Enum;
 
 namespace PixelManager.Domain.Dto;
 
