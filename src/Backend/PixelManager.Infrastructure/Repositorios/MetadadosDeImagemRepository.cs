@@ -59,10 +59,10 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
         return execucao.Invoke(session);
     }
 
-    public ListaPaginada<MetadadosDeImagem> ObterPorFiltroPaginacao(IDocumentSession sessao, DtoFiltromMetadadosDeImagem filtro)
+    public IList<MetadadosDeImagem> ObterPorFiltroPaginacao(IDocumentSession sessao, DtoFiltromMetadadosDeImagem filtro)
     {
         var query = ObterQueryPor(sessao, filtro);
-        return query.ObterPaginacao(sessao, filtro);
+        return query.ToList();
     }
 
     public IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IDocumentSession sessao, DtoFiltromMetadadosDeImagem? filtro = null)

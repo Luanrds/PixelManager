@@ -11,5 +11,5 @@ public interface IMetadadosDeImagemRepository
 	Task Atualize(MetadadosDeImagem metadados);
 	Task Remova(string id);
 	T ObterTodos<T>(Func<IDocumentSession, T> execucao);
-	ListaPaginada<MetadadosDeImagem> ObterPorFiltroPaginacao(IDocumentSession sessao, DtoFiltromMetadadosDeImagem filtro);
+    IList<MetadadosDeImagem> ObterPorFiltroPaginacao(IDocumentSession sessao, DtoFiltromMetadadosDeImagem filtro);
 }

@@ -25,16 +25,4 @@ public static class Conversor
 			Proporcao = entidade.Proporcao,
 			DataDeCriacao = entidade.DataDeCriacao
 		};
-
-    public static ResponseListaPaginada<TDestino> Converta<TOrigem, TDestino>(this ListaPaginada<TOrigem> listaPaginada, Func<TOrigem, TDestino> conversor)
-    {
-        return new ResponseListaPaginada<TDestino>
-        {
-            QuantidadeTotal = listaPaginada.QuantidadeTotal,
-            TotalFiltrado = listaPaginada.TotalFiltrado,
-            Pagina = listaPaginada.Pagina,
-            LinhasPorPagina = listaPaginada.LinhasPorPagina,
-            Dados = listaPaginada.Dados.Select(conversor).ToList()
-        };
-    }
 }

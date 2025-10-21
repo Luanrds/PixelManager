@@ -3,7 +3,7 @@ using PixelManager.Domain.Enum;
 
 namespace PixelManager.Domain.Dto;
 
-public class DtoFiltromMetadadosDeImagem : FiltroBaseCarregarMais
+public class DtoFiltromMetadadosDeImagem
 {
     public string NomeDoArquivo { get; set; } = string.Empty;
     public TipoArquivo? TipoDoArquivo { get; set; }

@@ -14,11 +14,11 @@ public class ConsulteTodosMetadadosDeImagemUseCase : IConsulteTodosMetadadosDeIm
         _repository = repository;
     }
 
-    public ResponseListaPaginada<ResponseMetadadosDeImagemJson> Execute(DtoFiltromMetadadosDeImagem filtro)
+    public List<ResponseMetadadosDeImagemJson> Execute(DtoFiltromMetadadosDeImagem filtro)
     {
-        ListaPaginada<MetadadosDeImagem> metadadosPaginados =
+        IList<MetadadosDeImagem> metadados =
             _repository.ObterTodos(sessao => _repository.ObterPorFiltroPaginacao(sessao, filtro));
 
-        return metadadosPaginados.Converta(entidade => entidade.Converta());
+        return metadados.Select(m => m.Converta()).ToList();
     }
 }
