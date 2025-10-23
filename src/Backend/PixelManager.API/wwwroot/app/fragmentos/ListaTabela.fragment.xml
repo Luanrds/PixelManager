@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins">
+    <Table
+        inset="false"
+        popinLayout="GridSmall"
+        sticky="ColumnHeaders"
+        items="{images>/items}">
+        <dependents>
+            <plugins:ColumnResizer />
+        </dependents>
+
+        <columns>
+            <Column width="25rem">
+                <Text text="{i18n>imageNameColumn}" />
+            </Column>
+            <Column width="10rem" demandPopin="true" hAlign="Center">
+                <Text text="{i18n>imageDimensionsColumn}" />
+            </Column>
+            <Column demandPopin="true" hAlign="Center">
+                <Text text="{i18n>imageProportionColumn}" />
+            </Column>
+            <Column demandPopin="true" hAlign="Center">
+                <Text text="{i18n>imageTypeColumn}" />
+            </Column>
+            <Column demandPopin="true" hAlign="Center">
+                <Text text="{i18n>imageCreationDateColumn}" />
+            </Column>
+            <Column demandPopin="true" hAlign="Center">
+                <Text text="{i18n>actionsColumn}" />
+            </Column>
+        </columns>
+
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{images>nomeDoArquivo}" />
+                    <Text text="{images>proporcaoDescricao}" />
+                    <Text text="{images>proporcao}" />
+                    <Text text="{images>tipoDescricao}" />
+                    <Text text="{images>dataDeCriacao}" />
+                    <HBox width="100%" justifyContent="Center">
+                        <Button
+                            icon="sap-icon://edit"
+                            press="onEditPress"
+                            class="sapUiTinyMarginEnd" />
+                        <Button
+                            icon="sap-icon://delete"
+                            type="Reject"
+                            press="onDeletePress" />
+                    </HBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

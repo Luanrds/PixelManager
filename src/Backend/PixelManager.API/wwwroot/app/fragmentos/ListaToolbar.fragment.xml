@@ -1,0 +1,29 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <HBox
+        justifyContent="SpaceBetween"
+        alignItems="Center"
+        class="sapUiSmallMarginBottom">
+        <HBox>
+            <Button
+                icon="sap-icon://add"
+                text="{i18n>addImageButtonText}"
+                type="Emphasized"
+                press=".onAddImagePress" />
+        </HBox>
+
+        <HBox>
+            <Button
+                icon="sap-icon://filter"
+                tooltip="{i18n>filterButtonTooltip}"
+                press=".aoFiltrar"
+                class="sapUiTinyMarginEnd" />
+            <SearchField
+                placeholder="{i18n>searchPlaceholder}"
+                value="{filtro>/nomeDoArquivo}"
+                width="300px"
+                search=".aoFiltrar" />
+        </HBox>
+    </HBox>
+</core:FragmentDefinition>
