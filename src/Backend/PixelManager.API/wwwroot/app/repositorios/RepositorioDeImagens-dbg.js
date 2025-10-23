@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(HttpApiClient) {
     "use strict";
 
-    const API_BASE_URL = "https://localhost:7232/MetadadosDeImagem";
+    const API_BASE_URL = "/MetadadosDeImagem";
 
     return {
         obterTodos: function (filtro, callback) {
