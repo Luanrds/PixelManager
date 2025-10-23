@@ -4,14 +4,11 @@
     "id": "pixelmanager",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
-      "supportedLocales": [
-        "",
-        "en"
-      ],
+      "supportedLocales": [ "", "en" ],
       "fallbackLocale": ""
     },
-    "title": "pixelmanager",
-    "description": "",
+    "title": "Pixel Manager",
+    "description": "Aplicação para gerenciamento de imagens",
     "type": "application",
     "applicationVersion": {
       "version": "1.0.0"
@@ -37,10 +34,7 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "pixelmanager.i18n.i18n",
-          "supportedLocales": [
-            "",
-            "en"
-          ]
+          "supportedLocales": [ "", "en" ]
         }
       },
       "images": {
@@ -54,9 +48,15 @@
         "viewPath": "pixelmanager.app.imagens",
         "controlId": "app",
         "controlAggregation": "pages",
-        "async": true
+        "async": true,
+        "mode": "history"
       },
       "routes": [
+        {
+          "pattern": "",
+          "name": "home",
+          "target": "imagens"
+        },
         {
           "pattern": "imagens",
           "name": "imagens",
