@@ -1,0 +1,10 @@
+<mvc:View
+    controllerName="pixelmanager.app.App"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true">
+    <Shell id="shell">
+        <App id="app">
+        </App>
+    </Shell>
+</mvc:View>
