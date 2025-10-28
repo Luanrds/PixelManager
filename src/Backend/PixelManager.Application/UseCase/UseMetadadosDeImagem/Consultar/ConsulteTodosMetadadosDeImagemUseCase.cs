@@ -14,11 +14,19 @@ public class ConsulteTodosMetadadosDeImagemUseCase : IConsulteTodosMetadadosDeIm
         _repository = repository;
     }
 
-    public List<ResponseMetadadosDeImagemJson> Execute(DtoFiltromMetadadosDeImagem filtro)
+    public async Task<ResponseConsultaMetadadosDeImagem> ExecuteAsync(DtoFiltromMetadadosDeImagem filtro)
     {
-        IList<MetadadosDeImagem> metadados =
-            _repository.ObterTodos(sessao => _repository.ObterPorFiltroPaginacao(sessao, filtro));
+        int contagemTotalGeral = await _repository.ObtenhaContagemTotal();
 
-        return metadados.Select(m => m.Converta()).ToList();
+        IList<MetadadosDeImagem> metadadosFiltrados = await _repository.ConsultePorFiltroAsync(filtro);
+
+        var resposta = new ResponseConsultaMetadadosDeImagem
+        {
+            TotalGeral = contagemTotalGeral,
+            TotalFiltrado = metadadosFiltrados.Count,
+            Itens = metadadosFiltrados.Select(m => m.Converta()).ToList() 
+        };
+
+        return resposta;
     }
 }
