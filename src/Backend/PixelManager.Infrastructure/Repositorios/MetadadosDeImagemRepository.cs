@@ -38,23 +38,6 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
         return await session.Query<MetadadosDeImagem>().ToListAsync();
     }
 
-    public async Task<int> ObtenhaContagemTotal()
-    {
-        using IAsyncDocumentSession session = _store.OpenAsyncSession();
-        return await session.Query<MetadadosDeImagem>().CountAsync();
-    }
-
-    public async Task Remova(string id)
-    {
-        MetadadosDeImagem? metadados = await ConsultePorId(id);
-        if (metadados != null)
-        {
-            using IAsyncDocumentSession session = _store.OpenAsyncSession();
-            session.Delete(id);
-            await session.SaveChangesAsync();
-        }
-    }
-
     public async Task<IList<MetadadosDeImagem>> ConsultePorFiltroAsync(DtoFiltromMetadadosDeImagem filtro)
     {
         using IAsyncDocumentSession session = _store.OpenAsyncSession();
@@ -63,7 +46,19 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
         return await query.ToListAsync();
     }
 
-    private IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IRavenQueryable<MetadadosDeImagem> query, DtoFiltromMetadadosDeImagem? filtro = null)
+    public async Task Remova(string id)
+    {
+        using IAsyncDocumentSession session = _store.OpenAsyncSession();
+        MetadadosDeImagem? metadados = await session.LoadAsync<MetadadosDeImagem>(id);
+
+        if (metadados is not null)
+        {
+            session.Delete(metadados);
+            await session.SaveChangesAsync();
+        }
+    }
+
+    private IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IRavenQueryable<MetadadosDeImagem> query, DtoFiltromMetadadosDeImagem filtro)
     {
         filtro ??= new();
 
@@ -72,17 +67,17 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
             query = query.ComNomeDoArquivo(filtro.NomeDoArquivo);
         }
 
-        if (filtro.TiposDoArquivo != null && filtro.TiposDoArquivo.Any())
+        if (filtro.TiposDoArquivo is { Count: > 0 })
         {
             query = query.ComTiposDeArquivo(filtro.TiposDoArquivo);
         }
 
-        if (filtro.DataDeCriacaoInicial.HasValue)
+        if (filtro.DataDeCriacaoInicial is not null)
         {
             query = query.ComDataDeCriacaoInicial(filtro.DataDeCriacaoInicial.Value);
         }
 
-        if (filtro.DataDeCriacaoFinal.HasValue)
+        if (filtro.DataDeCriacaoFinal is not null)
         {
             query = query.ComDataDeCriacaoFinal(filtro.DataDeCriacaoFinal.Value);
         }

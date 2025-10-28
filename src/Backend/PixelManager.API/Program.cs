@@ -19,10 +19,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:8080")
+        policy.WithOrigins("https://localhost:7232")
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .WithExposedHeaders("X-TOTAL-COUNT", "X-FILTERED-COUNT");
+              .AllowAnyMethod();
     });
 });
 
@@ -35,6 +34,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true
+});
+
 app.UseCors("PermitirFrontend");
 app.UseAuthorization();
 app.MapControllers();

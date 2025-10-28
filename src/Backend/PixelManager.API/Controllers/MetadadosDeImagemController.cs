@@ -24,17 +24,20 @@ public class MetadadosDeImagemController : PixelManagerBaseController
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ResponseConsultaMetadadosDeImagem), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
     public async Task<IActionResult> ConsulteTodos(
         [FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
         [FromQuery] DtoFiltromMetadadosDeImagem filtro)
     {
-        var resultado = await useCase.ExecuteAsync(filtro);
+        var response = await useCase.ExecuteAsync(filtro);
 
-        Response.Headers["X-TOTAL-COUNT"] = resultado.TotalGeral.ToString();
-        Response.Headers["X-FILTERED-COUNT"] = resultado.TotalFiltrado.ToString();
+        if (response.Count != 0)
+        {
+            return Ok(response);
+        }
 
-        return Ok(resultado);
+        return NoContent();
     }
 
     [HttpGet]

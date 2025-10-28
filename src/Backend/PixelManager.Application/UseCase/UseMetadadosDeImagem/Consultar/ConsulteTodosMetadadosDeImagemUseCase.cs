@@ -1,10 +1,10 @@
 ﻿using PixelManager.Application.Conversores;
 using PixelManager.Communication.Responses;
 using PixelManager.Domain.Dto;
-using PixelManager.Domain.Entidades;
 using PixelManager.Domain.Repositorios;
 
 namespace PixelManager.Application.UseCase.UseMetadadosDeImagem.Consultar;
+
 public class ConsulteTodosMetadadosDeImagemUseCase : IConsulteTodosMetadadosDeImagemUseCase
 {
     private readonly IMetadadosDeImagemRepository _repository;
@@ -14,19 +14,10 @@ public class ConsulteTodosMetadadosDeImagemUseCase : IConsulteTodosMetadadosDeIm
         _repository = repository;
     }
 
-    public async Task<ResponseConsultaMetadadosDeImagem> ExecuteAsync(DtoFiltromMetadadosDeImagem filtro)
+    public async Task<List<ResponseMetadadosDeImagemJson>> ExecuteAsync(DtoFiltromMetadadosDeImagem filtro)
     {
-        int contagemTotalGeral = await _repository.ObtenhaContagemTotal();
+        var metadadosFiltrados = await _repository.ConsultePorFiltroAsync(filtro);
 
-        IList<MetadadosDeImagem> metadadosFiltrados = await _repository.ConsultePorFiltroAsync(filtro);
-
-        var resposta = new ResponseConsultaMetadadosDeImagem
-        {
-            TotalGeral = contagemTotalGeral,
-            TotalFiltrado = metadadosFiltrados.Count,
-            Itens = metadadosFiltrados.Select(m => m.Converta()).ToList() 
-        };
-
-        return resposta;
+        return metadadosFiltrados.Select(m => m.Converta()).ToList();
     }
 }
