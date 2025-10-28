@@ -6,6 +6,7 @@ using PixelManager.Application.UseCase.UseMetadadosDeImagem.Criar;
 using PixelManager.Application.UseCase.UseMetadadosDeImagem.Remover;
 using PixelManager.Communication.Request;
 using PixelManager.Communication.Responses;
+using PixelManager.Domain.Dto;
 
 namespace PixelManager.API.Controllers;
 
@@ -26,9 +27,10 @@ public class MetadadosDeImagemController : PixelManagerBaseController
 	[ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
 	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
 	public async Task<IActionResult> ConsulteTodos(
-		[FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase)
+		[FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
+        [FromQuery] DtoFiltroMetadadosDeImagem filtro)
 	{
-		List<ResponseMetadadosDeImagemJson> response = await useCase.Execute();
+		List<ResponseMetadadosDeImagemJson> response = await useCase.Execute(filtro);
 
 		if (response.Count != 0)
 		{
