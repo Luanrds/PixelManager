@@ -76,5 +76,4 @@ public class MetadadosDeImagemController : PixelManagerBaseController
         await useCase.Execute(id);
         return NoContent();
     }
-
 }
