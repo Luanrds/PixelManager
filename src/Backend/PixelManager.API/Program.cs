@@ -4,7 +4,6 @@ using PixelManager.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ExceptionFilter));
@@ -22,7 +21,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:8080")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .WithExposedHeaders("X-TOTAL-COUNT", "X-FILTERED-COUNT");
     });
 });
 
@@ -35,13 +35,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseCors("PermitirFrontend");
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
 
 public partial class Program
