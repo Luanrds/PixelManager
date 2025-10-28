@@ -17,7 +17,12 @@ sap.ui.define([], function () {
 
             return fetch(apiUrl, parametrosFetch)
                 .then(response => this._erroOuResponse(response))
-                .then(response => response.json())
+                .then(response => {
+                    if (response.status === 204) {
+                        return [];
+                    }
+                    return response.json();
+                })
                 .catch(error => {
                     console.warn('Erro na requisição:', error);
                     throw error;
