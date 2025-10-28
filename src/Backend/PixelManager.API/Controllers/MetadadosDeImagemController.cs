@@ -23,22 +23,22 @@ public class MetadadosDeImagemController : PixelManagerBaseController
 		return Created(string.Empty, response);
 	}
 
-    [HttpGet]
-    [ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> ConsulteTodos(
-        [FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
-        [FromQuery] DtoFiltromMetadadosDeImagem filtro)
-    {
-        var response = await useCase.ExecuteAsync(filtro);
+	[HttpGet]
+	[ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
+	public IActionResult ConsulteTodos(
+		[FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
+		[FromQuery] DtoFiltromMetadadosDeImagem filtro)
+	{
+		List<ResponseMetadadosDeImagemJson> response = useCase.Execute(filtro);
+		
+		if (response.Count != 0)
+		{
+			return Ok(response);
+		}
 
-        if (response.Count != 0)
-        {
-            return Ok(response);
-        }
-
-        return NoContent();
-    }
+		return NoContent();
+	}
 
     [HttpGet]
 	[Route("{*id}")]
