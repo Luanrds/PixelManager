@@ -66,12 +66,16 @@ sap.ui.define([
         },
 
         _formatarDimensoes: function (comprimento, altura) {
-            if (!comprimento || !altura) return "-";
+            if (!comprimento || !altura) {
+                return "-";
+            }
             return `${comprimento} x ${altura}`;
         },
 
         formatarProporcao: function (comprimento, altura) {
-            if (!comprimento || !altura) return "-";
+            if (!comprimento || !altura) {
+                return "-";
+            }
             const proporcao = comprimento / altura;
             return `${proporcao.toFixed(2)}:1`;
         },
