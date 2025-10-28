@@ -9,12 +9,12 @@ public static class ExtensoesDasQueriesDeMetadadosDeImagem
 {
     public static IRavenQueryable<MetadadosDeImagem> ComNomeDoArquivo(this IRavenQueryable<MetadadosDeImagem> query, string nomeDoArquivo)
     {
-        return query.Search(x => x.NomeDoArquivo, $"*{nomeDoArquivo}*");
+        return query.Search(x => x.NomeDoArquivo, $"*{nomeDoArquivo}*", options: SearchOptions.And);
     }
 
-    public static IRavenQueryable<MetadadosDeImagem> ComTipoDeArquivo(this IRavenQueryable<MetadadosDeImagem> query, TipoArquivo tipo)
+    public static IRavenQueryable<MetadadosDeImagem> ComTiposDeArquivo(this IRavenQueryable<MetadadosDeImagem> query, IEnumerable<TipoArquivo> tipos)
     {
-        return query.Where(x => x.TipoDoArquivo == tipo);
+        return query.Where(x => x.TipoDoArquivo.In(tipos));
     }
 
     public static IRavenQueryable<MetadadosDeImagem> ComDataDeCriacaoInicial(this IRavenQueryable<MetadadosDeImagem> query, DateTime dataInicial)
