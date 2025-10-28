@@ -26,11 +26,11 @@ public class MetadadosDeImagemController : PixelManagerBaseController
     [HttpGet]
     [ProducesResponseType(typeof(List<ResponseMetadadosDeImagemJson>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErros), StatusCodes.Status204NoContent)]
-    public IActionResult ConsulteTodos(
-		[FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
-		[FromQuery] DtoFiltromMetadadosDeImagem filtro)
+    public async Task<IActionResult> ConsulteTodos(
+        [FromServices] IConsulteTodosMetadadosDeImagemUseCase useCase,
+        [FromQuery] DtoFiltromMetadadosDeImagem filtro)
     {
-        List<ResponseMetadadosDeImagemJson> response = useCase.Execute(filtro);
+        var response = await useCase.ExecuteAsync(filtro);
 
         if (response.Count != 0)
         {
