@@ -1,5 +1,6 @@
 ﻿using PixelManager.Application.Conversores;
 using PixelManager.Communication.Responses;
+using PixelManager.Domain.Dto;
 using PixelManager.Domain.Entidades;
 using PixelManager.Domain.Repositorios;
 
@@ -13,9 +14,9 @@ public class ConsulteTodosMetadadosDeImagemUseCase : IConsulteTodosMetadadosDeIm
 		_repository = repository;
 	}
 
-	public async Task<List<ResponseMetadadosDeImagemJson>> Execute()
+	public async Task<List<ResponseMetadadosDeImagemJson>> Execute(DtoFiltroMetadadosDeImagem filtro)
 	{
-		IList<MetadadosDeImagem> metadados = await _repository.ConsulteTodos();
+		IList<MetadadosDeImagem> metadados = await _repository.ConsultePorFiltroAsync(filtro);
 
 		return metadados.Select(m => m.Converta()).ToList();
 	}
