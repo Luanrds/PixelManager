@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Moq;
 using PixelManager.Application.UseCase.UseMetadadosDeImagem.Consultar;
+using PixelManager.Domain.Dto;
 using PixelManager.Domain.Entidades;
 using PixelManager.Domain.Repositorios;
 
@@ -17,8 +18,9 @@ public class ConsulteTodosMetadadosDeImagemUseCaseTest
 			new() { Id = "2", NomeDoArquivo = "imagem2.png" }
 		};
 		var (useCase, _) = CreateUseCase(listaEntidades);
+		var filtro = new DtoFiltroMetadadosDeImagem();
 
-		var result = await useCase.Execute();
+        var result = await useCase.Execute(filtro);
 
 		result.Should().HaveCount(2);
 	}
@@ -27,8 +29,9 @@ public class ConsulteTodosMetadadosDeImagemUseCaseTest
 	public async Task Success_Lista_Vazia()
 	{
 		var (useCase, _) = CreateUseCase([]);
+		var filtro = new DtoFiltroMetadadosDeImagem();
 
-		var result = await useCase.Execute();
+        var result = await useCase.Execute(filtro);
 
 		result.Should().BeEmpty();
 	}
@@ -36,7 +39,9 @@ public class ConsulteTodosMetadadosDeImagemUseCaseTest
 	private static (ConsulteTodosMetadadosDeImagemUseCase, Mock<IMetadadosDeImagemRepository>) CreateUseCase(IList<MetadadosDeImagem> entidades)
 	{
 		var repositoryMock = MetadadosDeImagemRepositorybuilder.Build();
-		repositoryMock.Setup(r => r.ConsulteTodos()).ReturnsAsync(entidades);
+		repositoryMock
+			.Setup(r => r.ConsultePorFiltroAsync(It.IsAny<DtoFiltroMetadadosDeImagem>()))
+			.ReturnsAsync(entidades);
 
 		var useCase = new ConsulteTodosMetadadosDeImagemUseCase(repositoryMock.Object);
 		return (useCase, repositoryMock);
