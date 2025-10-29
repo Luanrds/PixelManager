@@ -1,0 +1,73 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "pixelmanager",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": ["", "en"],
+      "fallbackLocale": ""
+    },
+    "title": "Pixel Manager",
+    "description": "Aplicação para gerenciamento de imagens",
+    "type": "application",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "pixelmanager.app.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "pixelmanager.i18n.i18n"
+        }
+      },
+      "images": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "pixelmanager.app.imagens",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true,
+        "mode":  "history"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "home",
+          "target":  "imagens"
+        },
+        {
+          "pattern": "imagens",
+          "name": "imagens",
+          "target": "imagens"
+        }
+      ],
+      "targets": {
+        "imagens": {
+          "viewName": "Lista",
+          "viewLevel": 1
+        }
+      }
+    }
+  }
+}
