@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using PixelManager.Application.MetadadosImagens;
 using PixelManager.Application.UseCase.UseMetadadosDeImagem.Atualizar;
 using PixelManager.Application.UseCase.UseMetadadosDeImagem.Consultar;
 using PixelManager.Application.UseCase.UseMetadadosDeImagem.ConsultarPorId;
@@ -18,5 +19,7 @@ public static class InjecaoDeDependenciaExtensao
 		services.AddScoped<IRemovaMetadadosDeImagemUseCase, RemovaMetadadosDeImagemUseCase>();
 		services.AddScoped<IConsulteMetadadosDeImagemPorIdUseCase, ConsulteMetadadosDeImagemPorIdUseCase>();
 		services.AddScoped<IConsulteTodosMetadadosDeImagemUseCase, ConsulteTodosMetadadosDeImagemUseCase>();
-	}
+
+		services.AddScoped<ServicoMetadadosImagens>();
+    }
 }
