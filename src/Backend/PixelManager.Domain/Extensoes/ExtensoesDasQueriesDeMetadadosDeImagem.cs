@@ -2,11 +2,17 @@
 using PixelManager.Domain.Enum;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Linq;
+using Raven.Client.Documents.Session;
 
 namespace PixelManager.Domain.Extensoes;
 
 public static class ExtensoesDasQueriesDeMetadadosDeImagem
 {
+    public static IRavenQueryable<MetadadosDeImagem> MetadadosDeImagems(this IAsyncDocumentSession documentoSession)
+    {
+        return documentoSession.Query<MetadadosDeImagem>();
+    }
+
     public static IRavenQueryable<MetadadosDeImagem> ComNomeDoArquivo(this IRavenQueryable<MetadadosDeImagem> query, string nomeDoArquivo)
     {
         return query.Search(x => x.NomeDoArquivo, $"*{nomeDoArquivo}*", options: SearchOptions.And);

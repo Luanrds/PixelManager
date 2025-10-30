@@ -41,7 +41,7 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
     public async Task<IList<MetadadosDeImagem>> ConsultePorFiltroAsync(DtoFiltroMetadadosDeImagem filtro)
     {
         using IAsyncDocumentSession session = _store.OpenAsyncSession();
-        IRavenQueryable<MetadadosDeImagem> query = session.Query<MetadadosDeImagem>();
+        IRavenQueryable<MetadadosDeImagem> query = session.MetadadosDeImagems();
         query = ObterQueryPor(query, filtro);
         return await query.ToListAsync();
     }
@@ -58,9 +58,12 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
 		}
 	}
 
-    private IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IRavenQueryable<MetadadosDeImagem> query, DtoFiltroMetadadosDeImagem filtro)
+    private static IRavenQueryable<MetadadosDeImagem> ObterQueryPor(IRavenQueryable<MetadadosDeImagem> query, DtoFiltroMetadadosDeImagem filtro)
     {
-        filtro ??= new();
+        if (filtro is null)
+        {
+            return query;
+        }
 
         if (!string.IsNullOrWhiteSpace(filtro.NomeDoArquivo))
         {
