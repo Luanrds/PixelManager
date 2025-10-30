@@ -1,7 +1,8 @@
 ﻿using CommomTestUtilities.Repositorios;
 using FluentAssertions;
 using Moq;
-using PixelManager.Application.UseCase.UseMetadadosDeImagem.Remover;
+using PixelManager.Application.MetadadosImagens;
+using PixelManager.Application.Validadores;
 using PixelManager.Domain.Entidades;
 using PixelManager.Domain.Repositorios;
 using PixelManager.Exceptions.Exceptions;
@@ -13,9 +14,9 @@ public class RemovaMetadadosDeImagemUseCaseTest
 	public async Task Success()
 	{
 		var entidade = new MetadadosDeImagem { Id = "123" };
-		var (useCase, repositoryMock) = CreateUseCase(entidade);
+		var (servico, repositoryMock) = CreateUseCase(entidade);
 
-		await useCase.Execute(entidade.Id);
+		await servico.Deletar(entidade.Id);
 
 		repositoryMock.Verify(r => r.Remova(entidade.Id), Times.Once);
 	}
@@ -23,22 +24,26 @@ public class RemovaMetadadosDeImagemUseCaseTest
 	[Fact]
 	public async Task Error_Recurso_Nao_Encontrado()
 	{
-		var (useCase, repositoryMock) = CreateUseCase(null);
-		var action = async () => await useCase.Execute("idInexistente");
+		var (servico, repositoryMock) = CreateUseCase(null);
+		var action = async () => await servico.Deletar("idInexistente");
 
 		await action.Should().ThrowAsync<RecursoNaoEncontradoException>();
 
 		repositoryMock.Verify(r => r.Remova(It.IsAny<string>()), Times.Never);
 	}
 
-	private static (RemovaMetadadosDeImagemUseCase, Mock<IMetadadosDeImagemRepository>) CreateUseCase(MetadadosDeImagem? entidade)
+	private static (ServicoMetadadosImagens, Mock<IMetadadosDeImagemRepository>) CreateUseCase(MetadadosDeImagem? entidade)
 	{
 		var repositoryMock = MetadadosDeImagemRepositorybuilder.Build();
 
 		if (entidade is not null)
+		{
 			repositoryMock.Setup(r => r.ConsultePorId(entidade.Id)).ReturnsAsync(entidade);
+		}
 
-		var useCase = new RemovaMetadadosDeImagemUseCase(repositoryMock.Object);
+        var validator = new MetadadosDeImagemValidator();
+
+        var useCase = new ServicoMetadadosImagens(repositoryMock.Object, validator);
 		return (useCase, repositoryMock);
 	}
 }
