@@ -4,11 +4,13 @@ sap.ui.define([
 ], function (Controller, MessageToast) {
 	"use strict";
 
+	const ROTA_LISTA_IMAGENS = "imagens";
 	const NAMESPACE_DA_CONTROLLER = "pixelmanager.app.BaseController";
 	const ID_TOOL_PAGE = "toolPage";
+	const CHAVE_MENSAGEM_ERRO = "errorWhileProcessing";
 
 	return Controller.extend(NAMESPACE_DA_CONTROLLER, {
-		rotaListaDeImagens: "imagens",
+		rotaListaDeImagens: ROTA_LISTA_IMAGENS,
 
 		modelo: function (nome, modelo) {
 			const view = this.getView();
@@ -60,7 +62,7 @@ sap.ui.define([
 			const promise = this._executarEObterPromiseDaAction(action, busyControl);
 
 			promise.catch(() => {
-				MessageToast.show("Ocorreu um erro ao processar sua solicitação.");
+				MessageToast.show(CHAVE_MENSAGEM_ERRO);
 			});
 
 			return promise;

@@ -19,23 +19,27 @@ sap.ui.define([
 
         _acrescentarFiltrosNoURLSearchParams(filtro) {
             const params = new URLSearchParams();
+            const nomeDoArquivo = "NomeDoArquivo";
+            const tipoDoArquivo = "TiposDoArquivo"
+            const dataDeCriacaoInicial = "DataDeCriacaoInicial";
+            const dataDeCriacaoFinal = "DataDeCriacaoFinal";
 
             if (filtro?.nomeDoArquivo) {
-                params.append("NomeDoArquivo", filtro.nomeDoArquivo);
+                params.append(nomeDoArquivo, filtro.nomeDoArquivo);
             }
 
             if (Array.isArray(filtro?.TiposDoArquivo) && filtro.TiposDoArquivo.length > 0) {
                 filtro.TiposDoArquivo.forEach(tipo => {
-                    params.append("TiposDoArquivo", tipo);
+                    params.append(tipoDoArquivo, tipo);
                 });
             }
 
             if (filtro?.dataDeCriacaoInicial) {
-                params.append("DataDeCriacaoInicial", filtro.dataDeCriacaoInicial);
+                params.append(dataDeCriacaoInicial, filtro.dataDeCriacaoInicial);
             }
 
             if (filtro?.dataDeCriacaoFinal) {
-                params.append("DataDeCriacaoFinal", filtro.dataDeCriacaoFinal);
+                params.append(dataDeCriacaoFinal, filtro.dataDeCriacaoFinal);
             }
 
             const queryString = params.toString();

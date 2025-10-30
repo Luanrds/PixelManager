@@ -3,5 +3,7 @@ sap.ui.define([
 ], function (Controller) {
 	"use strict";
 
-	return Controller.extend("pixelmanager.app.App", {});
+	const NAMESPACE_APP = "pixelmanager.app.App";
+
+	return Controller.extend(NAMESPACE_APP, {});
 });

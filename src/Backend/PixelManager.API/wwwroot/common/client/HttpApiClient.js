@@ -2,6 +2,7 @@ sap.ui.define([], function () {
     "use strict";
 
     const CONTENT_TYPE_JSON = "application/json";
+    const NOME_METODO_HTTP_GET = "GET";
 
     return {
         converterEmUrl(...values) {
@@ -9,11 +10,12 @@ sap.ui.define([], function () {
         },
 
         get(endPoint) {
-            return this._ajaxRequest("GET", endPoint);
+            return this._ajaxRequest(NOME_METODO_HTTP_GET, endPoint);
         },
 
         _ajaxRequest(type, apiUrl, dados) {
             const parametrosFetch = this._obterParametrosDaRequisicao(type, dados);
+            const chaveErroRequisicao = "requestError"
 
             return fetch(apiUrl, parametrosFetch)
                 .then(response => this._erroOuResponse(response))
@@ -24,7 +26,7 @@ sap.ui.define([], function () {
                     return response.json();
                 })
                 .catch(error => {
-                    console.warn('Erro na requisição:', error);
+                    console.warn(chaveErroRequisicao + ':', error);
                     throw error;
                 });
         },
@@ -37,7 +39,7 @@ sap.ui.define([], function () {
                 }
             };
 
-            if (metodoHttp !== "GET" && dados) {
+            if (metodoHttp !== NOME_METODO_HTTP_GET && dados) {
                 parametros.body = JSON.stringify(dados);
             }
 
@@ -45,7 +47,9 @@ sap.ui.define([], function () {
         },
 
         _ehStatusDeErro(status, estaOk) {
-            return (status >= 400 && status <= 500) || !estaOk;
+            const erroMinimo = 400;
+            const erroMaximo = 500;
+            return (status >= erroMinimo && status <= erroMaximo) || !estaOk;
         },
 
         _erroOuResponse(response) {
