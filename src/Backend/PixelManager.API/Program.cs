@@ -10,7 +10,7 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AdicioneAplicacao();
-builder.Services.AdicioneInfraestrutura();
+builder.Services.AdicioneInfraestrutura(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
