@@ -2,11 +2,19 @@ sap.ui.define([
     "pixelmanager/app/BaseController",
     "sap/ui/model/json/JSONModel",
     "pixelmanager/app/repositorios/RepositorioDeImagens",
-    "sap/ui/core/format/DateFormat"
-], function (BaseController, JSONModel, RepositorioDeImagens, DateFormat) {
+    "sap/ui/core/format/DateFormat",
+    "pixelmanager/app/constantes/ConstantesDeImagem"
+], function (BaseController, JSONModel, RepositorioDeImagens, DateFormat, ConstantesDeImagem) {
     "use strict";
 
-    return BaseController.extend("pixelmanager.app.imagens.Lista", {
+    const NAMESPACE_LISTA = "pixelmanager.app.imagens.Lista";
+    const NOME_MODELO_IMAGENS = "images";
+    const NOME_MODELO_FILTRO = "filtro";
+    const NOME_MODELO_TIPOS = "tipos";
+    const VALOR_NAO_INFORMADO = "-";
+    const VALOR_VAZIO = "";
+
+    return BaseController.extend(NAMESPACE_LISTA, {
         oDateFormatExibicao: null,
 
         onInit: function () {
@@ -16,32 +24,26 @@ sap.ui.define([
         },
 
         _inicializarModelos: function () {
-            this.getView().setModel(new JSONModel({ items: [] }), "images");
+            this.getView().setModel(new JSONModel({ items: [] }), NOME_MODELO_IMAGENS);
             this.getView().setModel(new JSONModel({
-                nomeDoArquivo: "",
+                nomeDoArquivo: VALOR_VAZIO,
                 TiposDoArquivo: [],
                 dataDeCriacaoInicial: null,
                 dataDeCriacaoFinal: null
-            }), "filtro");
+            }), NOME_MODELO_FILTRO);
 
-            const tipos = [
-                { key: 0, text: "PNG" },
-                { key: 1, text: "JPG" },
-                { key: 2, text: "Bitmap" },
-                { key: 3, text: "GIF" }
-            ];
-            this.getView().setModel(new JSONModel(tipos), "tipos");
+            this.getView().setModel(new JSONModel(ConstantesDeImagem.TIPOS_DE_ARQUIVO), NOME_MODELO_TIPOS);
         },
 
         _modeloFiltro: function (data) {
-            const nome = 'filtro';
-            return this.modelo(nome, data);
+            return this.modelo(NOME_MODELO_FILTRO, data);
         },
 
         _formatarDataParaExibicao: function (sDataString) {
-            if (!sDataString) return "";
+            const valorInvalido = "Inválida";
+            if (!sDataString) return VALOR_VAZIO;
             const oDate = new Date(sDataString);
-            return !isNaN(oDate.getTime()) ? this.oDateFormatExibicao.format(oDate) : "Inválida";
+            return !isNaN(oDate.getTime()) ? this.oDateFormatExibicao.format(oDate) : valorInvalido;
         },
 
         _obterImagens: async function () {
@@ -57,24 +59,24 @@ sap.ui.define([
                 img.dataCriacaoFormatada = this._formatarDataParaExibicao(img.dataDeCriacao);
             });
 
-            this.getView().getModel("images").setData({ items: itens });
+            this.getView().getModel(NOME_MODELO_IMAGENS).setData({ items: itens });
         },
 
         _obterDescricaoDoTipo: function (tipo) {
-            const tipos = { 0: "PNG", 1: "JPG", 2: "Bitmap", 3: "GIF" };
-            return tipos[tipo] !== undefined ? tipos[tipo] : "Desconhecido";
+            const DescricaoTipoDesconhecido = "Desconhecido";
+            return ConstantesDeImagem.MAPA_DESCRICAO_TIPO[tipo] ?? DescricaoTipoDesconhecido;
         },
 
         _formatarDimensoes: function (comprimento, altura) {
             if (!comprimento || !altura) {
-                return "-";
+                return VALOR_NAO_INFORMADO;
             }
             return `${comprimento} x ${altura}`;
         },
 
         formatarProporcao: function (comprimento, altura) {
             if (!comprimento || !altura) {
-                return "-";
+                return VALOR_NAO_INFORMADO;
             }
             const proporcao = comprimento / altura;
             return `${proporcao.toFixed(2)}:1`;
@@ -109,8 +111,16 @@ sap.ui.define([
                 this._obterImagens());
         },
 
-        onAddImagePress: function () { },
-        aoEditarImagem: function () { },
-        aoExcluirImagem: function () { }
+        onAddImagePress: function () {
+            this.notImplemented();
+        },
+
+        aoEditarImagem: function () {
+            this.notImplemented();
+        },
+
+        aoExcluirImagem: function () {
+            this.notImplemented();
+        },
     });
 });
