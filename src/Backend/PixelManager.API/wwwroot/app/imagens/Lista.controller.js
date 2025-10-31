@@ -16,10 +16,12 @@ sap.ui.define([
 
     return BaseController.extend(NAMESPACE_LISTA, {
         oDateFormatExibicao: null,
+        rotaListaDeImagens: "imagens",
 
         onInit: function () {
             this.oDateFormatExibicao = DateFormat.getDateTimeInstance({ pattern: "dd/MM/yyyy" });
             this._inicializarModelos();
+            this.vincularRota(this.rotaListaDeImagens || rotaListaDeImagens, this._aoCorresponderRota);
             this._obterImagens();
         },
 
@@ -38,6 +40,28 @@ sap.ui.define([
         _modeloFiltro: function (data) {
             return this.modelo(NOME_MODELO_FILTRO, data);
         },
+
+        _aoCorresponderRota: function (e) {
+            const query = "?query";
+            const separadorLista = ",";
+            const q = (e.getParameter("arguments")?.[query]) || {};
+            const tipos = q.TiposDoArquivo == null ? []
+                : Array.isArray(q.TiposDoArquivo)
+                    ? q.TiposDoArquivo
+                    : (typeof q.TiposDoArquivo === "string" && q.TiposDoArquivo.includes(separadorLista))
+                        ? q.TiposDoArquivo.split(separadorLista)
+                        : [q.TiposDoArquivo];
+
+            this._modeloFiltro().setData({
+                nomeDoArquivo: (q.NomeDoArquivo || VALOR_VAZIO).trim(),
+                TiposDoArquivo: tipos,
+                dataDeCriacaoInicial: (q.DataDeCriacaoInicial && new Date(q.DataDeCriacaoInicial)) || null,
+                dataDeCriacaoFinal: (q.DataDeCriacaoFinal && new Date(q.DataDeCriacaoFinal)) || null
+            });
+
+            this._obterImagens();
+        },
+
 
         _formatarDataParaExibicao: function (sDataString) {
             const valorInvalido = "Inválida";
@@ -106,8 +130,32 @@ sap.ui.define([
             return filtroParaApi;
         },
 
+        _atualizarUrlComFiltro: function () {
+            const filtro = this._obterFiltro();
+            const query = {};
+
+            if (filtro.nomeDoArquivo) {
+                query.NomeDoArquivo = filtro.nomeDoArquivo;
+            }
+
+            if (Array.isArray(filtro.TiposDoArquivo) && filtro.TiposDoArquivo.length) {
+                query.TiposDoArquivo = filtro.TiposDoArquivo;
+            }
+
+            if (filtro.dataDeCriacaoInicial) {
+                query.DataDeCriacaoInicial = filtro.dataDeCriacaoInicial;
+            }
+
+            if (filtro.dataDeCriacaoFinal) {
+                query.DataDeCriacaoFinal = filtro.dataDeCriacaoFinal;
+            }
+
+            this.getRouter().navTo(this.rotaListaDeImagens || rotaListaDeImagens, { query }, true);
+        },
+
         aoFiltrar: function () {
-            this.exibirEspera(() =>
+            this._atualizarUrlComFiltro();
+            return this.exibirEspera(() =>
                 this._obterImagens());
         },
 
@@ -121,6 +169,6 @@ sap.ui.define([
 
         aoExcluirImagem: function () {
             this.notImplemented();
-        },
+        }
     });
 });

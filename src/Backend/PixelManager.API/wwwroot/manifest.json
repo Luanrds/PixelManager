@@ -4,7 +4,7 @@
     "id": "pixelmanager",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
-      "supportedLocales": ["", "en"],
+      "supportedLocales": [ "", "en" ],
       "fallbackLocale": ""
     },
     "title": "Pixel Manager",
@@ -48,16 +48,16 @@
         "controlId": "app",
         "controlAggregation": "pages",
         "async": true,
-        "mode":  "history"
+        "mode": "history"
       },
       "routes": [
         {
           "pattern": "",
           "name": "home",
-          "target":  "imagens"
+          "target": "imagens"
         },
         {
-          "pattern": "imagens",
+          "pattern": "imagens:?query:",
           "name": "imagens",
           "target": "imagens"
         }
