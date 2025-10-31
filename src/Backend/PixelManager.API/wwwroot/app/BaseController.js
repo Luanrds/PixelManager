@@ -1,71 +1,75 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
-	"sap/m/MessageToast"
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageToast"
 ], function (Controller, MessageToast) {
-	"use strict";
+    "use strict";
 
-	const ROTA_LISTA_IMAGENS = "imagens";
-	const NAMESPACE_DA_CONTROLLER = "pixelmanager.app.BaseController";
-	const ID_TOOL_PAGE = "toolPage";
-	const CHAVE_MENSAGEM_ERRO = "errorWhileProcessing";
+    const ROTA_LISTA_IMAGENS = "imagens";
+    const NAMESPACE_DA_CONTROLLER = "pixelmanager.app.BaseController";
+    const ID_TOOL_PAGE = "toolPage";
+    const CHAVE_MENSAGEM_ERRO = "errorWhileProcessing";
 
-	return Controller.extend(NAMESPACE_DA_CONTROLLER, {
-		rotaListaDeImagens: ROTA_LISTA_IMAGENS,
+    return Controller.extend(NAMESPACE_DA_CONTROLLER, {
+        rotaListaDeImagens: ROTA_LISTA_IMAGENS,
 
-		modelo: function (nome, modelo) {
-			const view = this.getView();
-			if (modelo) view.setModel(modelo, nome);
-			return view.getModel(nome);
-		},
+        modelo: function (nome, modelo) {
+            const view = this.getView();
+            if (modelo) view.setModel(modelo, nome);
+            return view.getModel(nome);
+        },
 
-		getRouter: function () {
-			return this.getOwnerComponent().getRouter();
-		},
+        getRouter: function () {
+            return this.getOwnerComponent().getRouter();
+        },
 
-		vincularRota: function (routeName, func) {
-			const router = this.getRouter();
-			return routeName
-				? router.getRoute(routeName).attachPatternMatched(func, this)
-				: router.attachRouteMatched(func, this);
-		},
+        vincularRota: function (routeName, func) {
+            const router = this.getRouter();
+            return routeName
+                ? router.getRoute(routeName).attachPatternMatched(func, this)
+                : router.attachRouteMatched(func, this);
+        },
 
-		_setarCarregamento: function (estado, controle) {
-			if (controle?.setBusy) {
-				controle.setBusyIndicatorDelay(0);
-				controle.setBusy(estado);
-			}
-		},
+        _setarCarregamento: function (estado, controle) {
+            if (controle?.setBusy) {
+                controle.setBusyIndicatorDelay(0);
+                controle.setBusy(estado);
+            }
+        },
 
-		_carregamentoDaToolPageOuControle: function (estado, busyControl) {
-			const root = this.getOwnerComponent().getRootControl();
-			const controle = busyControl || root.byId(ID_TOOL_PAGE) || this.getView();
-			this._setarCarregamento(estado, controle);
-		},
+        _carregamentoDaToolPageOuControle: function (estado, busyControl) {
+            const root = this.getOwnerComponent().getRootControl();
+            const controle = busyControl || root.byId(ID_TOOL_PAGE) || this.getView();
+            this._setarCarregamento(estado, controle);
+        },
 
-		_executarEObterPromiseDaAction: function (action, busyControl) {
-			this._carregamentoDaToolPageOuControle(true, busyControl);
+        _executarEObterPromiseDaAction: function (action, busyControl) {
+            this._carregamentoDaToolPageOuControle(true, busyControl);
 
-			let promise;
-			try {
-				const resultado = action();
-				promise = resultado instanceof Promise ? resultado : Promise.resolve(resultado);
-			} catch (e) {
-				promise = Promise.reject(e);
-			}
+            let promise;
+            try {
+                const resultado = action();
+                promise = resultado instanceof Promise ? resultado : Promise.resolve(resultado);
+            } catch (e) {
+                promise = Promise.reject(e);
+            }
 
-			return promise.finally(() =>
-				this._carregamentoDaToolPageOuControle(false, busyControl)
-			);
-		},
+            return promise.finally(() =>
+                this._carregamentoDaToolPageOuControle(false, busyControl)
+            );
+        },
 
-		exibirEspera: function (action, busyControl) {
-			const promise = this._executarEObterPromiseDaAction(action, busyControl);
+        exibirEspera: function (action, busyControl) {
+            const promise = this._executarEObterPromiseDaAction(action, busyControl);
 
-			promise.catch(() => {
-				MessageToast.show(CHAVE_MENSAGEM_ERRO);
-			});
+            promise.catch(() => {
+                MessageToast.show(CHAVE_MENSAGEM_ERRO);
+            });
 
-			return promise;
-		}
-	});
+            return promise;
+        },
+
+        notImplemented: function () {
+            MessageToast.show("Funcionalidade não implementada");
+        }
+    });
 });
