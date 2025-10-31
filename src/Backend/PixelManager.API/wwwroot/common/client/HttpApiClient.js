@@ -15,7 +15,7 @@ sap.ui.define([], function () {
 
         _ajaxRequest(type, apiUrl, dados) {
             const parametrosFetch = this._obterParametrosDaRequisicao(type, dados);
-            const chaveErroRequisicao = "requestError"
+            const chaveErroRequisicao = "requestError";
 
             return fetch(apiUrl, parametrosFetch)
                 .then(response => this._erroOuResponse(response))
