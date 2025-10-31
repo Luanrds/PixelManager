@@ -1,4 +1,4 @@
-sap.ui.define([
+﻿sap.ui.define([
     "pixelmanager/common/client/HttpApiClient"
 ], function (HttpApiClient) {
     "use strict";
