@@ -26,19 +26,19 @@ public class MetadadosDeImagemRepository(IDocumentStore store) : IMetadadosDeIma
 		await session.SaveChangesAsync();
 	}
 
-	public async Task<MetadadosDeImagem?> ConsultePorId(string id)
+	public async Task<MetadadosDeImagem?> ObterPorId(string id)
 	{
 		using IAsyncDocumentSession session = _store.OpenAsyncSession();
 		return await session.LoadAsync<MetadadosDeImagem>(id);
 	}
 
-	public async Task<IList<MetadadosDeImagem>> ConsulteTodos()
+	public async Task<IList<MetadadosDeImagem>> ObterTodos()
 	{
 		using IAsyncDocumentSession session = _store.OpenAsyncSession();
 		return await session.Query<MetadadosDeImagem>().ToListAsync();
 	}
 
-    public async Task<IList<MetadadosDeImagem>> ConsultePorFiltroAsync(DtoFiltroMetadadosDeImagem filtro)
+    public async Task<IList<MetadadosDeImagem>> ObterPorFiltroAsync(DtoFiltroMetadadosDeImagem filtro)
     {
         using IAsyncDocumentSession session = _store.OpenAsyncSession();
         IRavenQueryable<MetadadosDeImagem> query = session.MetadadosDeImagems();

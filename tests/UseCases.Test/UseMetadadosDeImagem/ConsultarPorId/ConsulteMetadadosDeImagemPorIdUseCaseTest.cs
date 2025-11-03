@@ -39,7 +39,7 @@ public class ConsulteMetadadosDeImagemPorIdUseCaseTest
 
 		if (entidade is not null)
 		{
-			repositoryMock.Setup(r => r.ConsultePorId(entidade.Id)).ReturnsAsync(entidade);
+			repositoryMock.Setup(r => r.ObterPorId(entidade.Id)).ReturnsAsync(entidade);
 		}
 
         var validator = new MetadadosDeImagemValidator();

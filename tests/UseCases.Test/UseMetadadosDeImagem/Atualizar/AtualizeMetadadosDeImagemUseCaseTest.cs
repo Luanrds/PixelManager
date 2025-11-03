@@ -62,7 +62,7 @@ public class AtualizeMetadadosDeImagemUseCaseTest
 		var validator = new MetadadosDeImagemValidator();
 
 		if (entidade is not null)
-			repositoryMock.Setup(r => r.ConsultePorId(entidade.Id)).ReturnsAsync(entidade);
+			repositoryMock.Setup(r => r.ObterPorId(entidade.Id)).ReturnsAsync(entidade);
 
 		var servico = new ServicoMetadadosImagens(repositoryMock.Object, validator);
 

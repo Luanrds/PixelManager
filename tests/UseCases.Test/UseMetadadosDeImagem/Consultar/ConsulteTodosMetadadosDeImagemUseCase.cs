@@ -41,7 +41,7 @@ public class ConsulteTodosMetadadosDeImagemUseCaseTest
 	{
 		var repositoryMock = MetadadosDeImagemRepositorybuilder.Build();
 		repositoryMock
-			.Setup(r => r.ConsultePorFiltroAsync(It.IsAny<DtoFiltroMetadadosDeImagem>()))
+			.Setup(r => r.ObterPorFiltroAsync(It.IsAny<DtoFiltroMetadadosDeImagem>()))
 			.ReturnsAsync(entidades);
 
         var validator = new MetadadosDeImagemValidator();
