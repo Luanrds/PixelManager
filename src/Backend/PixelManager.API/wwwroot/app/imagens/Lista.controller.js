@@ -21,8 +21,7 @@ sap.ui.define([
         onInit: function () {
             this.oDateFormatExibicao = DateFormat.getDateTimeInstance({ pattern: "dd/MM/yyyy" });
             this._inicializarModelos();
-            this.vincularRota(this.rotaListaDeImagens || rotaListaDeImagens, this._aoCorresponderRota);
-            this._obterImagens();
+            this.vincularRota(this.rotaListaDeImagens, this._aoCorresponderRota);
         },
 
         _inicializarModelos: function () {
@@ -42,10 +41,17 @@ sap.ui.define([
         },
 
         _aoCorresponderRota: function (e) {
+            this._restaurarFiltroDaRota(e);
+            this._obterImagens();
+        },
+
+        _restaurarFiltroDaRota: function (e) {
             const query = "?query";
             const separadorLista = ",";
             const q = (e.getParameter("arguments")?.[query]) || {};
-            const tipos = q.TiposDoArquivo == null ? []
+
+            const tipos = q.TiposDoArquivo == null
+                ? []
                 : Array.isArray(q.TiposDoArquivo)
                     ? q.TiposDoArquivo
                     : (typeof q.TiposDoArquivo === "string" && q.TiposDoArquivo.includes(separadorLista))
@@ -58,10 +64,7 @@ sap.ui.define([
                 dataDeCriacaoInicial: (q.DataDeCriacaoInicial && new Date(q.DataDeCriacaoInicial)) || null,
                 dataDeCriacaoFinal: (q.DataDeCriacaoFinal && new Date(q.DataDeCriacaoFinal)) || null
             });
-
-            this._obterImagens();
         },
-
 
         _formatarDataParaExibicao: function (sDataString) {
             const valorInvalido = "Inválida";
@@ -150,25 +153,26 @@ sap.ui.define([
                 query.DataDeCriacaoFinal = filtro.dataDeCriacaoFinal;
             }
 
-            this.getRouter().navTo(this.rotaListaDeImagens || rotaListaDeImagens, { query }, true);
+            this.getRouter().navTo(this.rotaListaDeImagens, { query }, true);
         },
 
         aoFiltrar: function () {
-            this._atualizarUrlComFiltro();
-            return this.exibirEspera(() =>
-                this._obterImagens());
+            return this.exibirEspera(() => {
+                this._atualizarUrlComFiltro();
+                return this._obterImagens();
+            });
         },
 
         onAddImagePress: function () {
-            this.notImplemented();
+            this.NaoImplementado();
         },
 
         aoEditarImagem: function () {
-            this.notImplemented();
+            this.NaoImplementado();
         },
 
         aoExcluirImagem: function () {
-            this.notImplemented();
+            this.NaoImplementado();
         }
     });
 });
