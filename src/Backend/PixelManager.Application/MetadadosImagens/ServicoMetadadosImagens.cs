@@ -21,45 +21,35 @@ public class ServicoMetadadosImagens
 
     public async Task<ResponseMetadadosDeImagemJson> Criar(RequestMetadadosDeImagemJson request)
     {
-        var resultado = _validatorDeMetadadosImagem.Validate(request);
-        if (!resultado.IsValid)
-        {
-            var mensagensDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
-            throw new ErrosDeValidacaoException(mensagensDeErro);
-        }
+        _validatorDeMetadadosImagem.ValideOuLance(request);
 
-        var entidade = request.Converta();
+        var entidade = request.ConverterParaEntidade();
 
         await _metadadosDeImagemRepository.Adicione(entidade);
 
-        return entidade.Converta();
+        return ResponseMetadadosDeImagemJson.ConvertaDe(entidade);
     }
 
     public async Task<List<ResponseMetadadosDeImagemJson>> ObterTodos(DtoFiltroMetadadosDeImagem filtro)
     {
-        var metadados = await _metadadosDeImagemRepository.ConsultePorFiltroAsync(filtro);
+        var metadados = await _metadadosDeImagemRepository.ObterPorFiltroAsync(filtro);
 
-        return [.. metadados.Select(m => m.Converta())];
+        return [.. metadados.Select(ResponseMetadadosDeImagemJson.ConvertaDe)];
     }
 
     public async Task<ResponseMetadadosDeImagemJson> ObterPorId(string id)
     {
-        var metadados = await _metadadosDeImagemRepository.ConsultePorId(id)
+        var metadados = await _metadadosDeImagemRepository.ObterPorId(id)
             ?? throw new RecursoNaoEncontradoException();
 
-        return metadados.Converta();
+        return ResponseMetadadosDeImagemJson.ConvertaDe(metadados);
     }
 
     public async Task Atualizar(string id, RequestMetadadosDeImagemJson request)
     {
-        var resultado = _validatorDeMetadadosImagem.Validate(request);
-        if (!resultado.IsValid)
-        {
-            var mensagensDeErro = resultado.Errors.Select(e => e.ErrorMessage).ToList();
-            throw new ErrosDeValidacaoException(mensagensDeErro);
-        }
+        _validatorDeMetadadosImagem.ValideOuLance(request);
 
-        var metadados = await _metadadosDeImagemRepository.ConsultePorId(id)
+        var metadados = await _metadadosDeImagemRepository.ObterPorId(id)
             ?? throw new RecursoNaoEncontradoException();
 
         metadados.NomeDoArquivo = request.NomeDoArquivo;
@@ -72,7 +62,7 @@ public class ServicoMetadadosImagens
 
     public async Task Deletar(string id)
     {
-        if (await _metadadosDeImagemRepository.ConsultePorId(id) is null)
+        if (await _metadadosDeImagemRepository.ObterPorId(id) is null)
         {
             throw new RecursoNaoEncontradoException();
         }
