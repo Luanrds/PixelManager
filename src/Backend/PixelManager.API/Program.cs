@@ -1,7 +1,6 @@
-using FluentValidation;
 using PixelManager.API.Filtros;
+using PixelManager.Application;
 using PixelManager.Application.MetadadosImagens;
-using PixelManager.Application.Validadores;
 using PixelManager.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,20 +10,20 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(typeof(ExceptionFilter));
 });
 
-builder.Services.AddValidatorsFromAssembly(typeof(InjecaoDeDependenciaExtensao).Assembly);
-builder.Services.AddScoped<ServicoMetadadosImagens>();
-builder.Services.AddScoped<MetadadosDeImagemValidator>();
+builder.Services.AdicioneValidacoes();
 builder.Services.AdicioneInfraestrutura(builder.Configuration);
+builder.Services.AddScoped<ServicoMetadadosImagens>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var origins = Environment.GetEnvironmentVariable("Cors_Origins")?.Split(";") ?? [];
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:8081", "https://localhost:7232")
+        policy.WithOrigins(origins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

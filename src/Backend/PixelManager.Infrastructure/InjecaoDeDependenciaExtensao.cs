@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PixelManager.Domain.Constantes;
 using PixelManager.Domain.Repositorios;
 using PixelManager.Infrastructure.Repositorios;
 using Raven.Client.Documents;
@@ -10,11 +11,16 @@ public static class InjecaoDeDependenciaExtensao
 {
     public static IServiceCollection AdicioneInfraestrutura(this IServiceCollection services, IConfiguration configuracao)
     {
-        services.AddSingleton<IDocumentStore>(_ => new DocumentStore
+        services.AddSingleton<IDocumentStore>(_ =>
         {
-            Urls = configuracao.GetSection("RavenDb:Urls").Get<string[]>() ?? ["http://127.0.0.1:8080"],
-            Database = configuracao["RavenDb:Database"] ?? "PixelManager"
-        }.Initialize());
+            var urls = Environment.GetEnvironmentVariable("RAVEN_URLS")?.Split(";");
+
+            return new DocumentStore
+            {
+                Urls = urls,
+                Database = NomeDosBancos.PixelManager
+            }.Initialize();
+        });
 
         services.AddScoped<IMetadadosDeImagemRepository, MetadadosDeImagemRepository>();
         return services;
