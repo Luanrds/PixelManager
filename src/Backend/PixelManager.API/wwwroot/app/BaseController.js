@@ -1,4 +1,4 @@
-sap.ui.define([
+﻿sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast"
 ], function (Controller, MessageToast) {
@@ -68,7 +68,7 @@ sap.ui.define([
             return promise;
         },
 
-        notImplemented: function () {
+        NaoImplementado: function () {
             const texto = this.getOwnerComponent()
                 .getModel("i18n")
                 .getResourceBundle()
