@@ -2,55 +2,55 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
 
-	<HBox
+    <HBox
         justifyContent="SpaceBetween"
         alignItems="Center"
         class="sapUiSmallMarginBottom">
 
-		<HBox>
-			<Button
+        <HBox>
+            <Button
                 icon="sap-icon://add"
                 text="{i18n>addImageButtonText}"
                 type="Emphasized"
                 press=".onAddImagePress" />
-		</HBox>
+        </HBox>
 
-		<HBox alignItems="End">
-			<VBox class="sapUiTinyMarginEnd">
-				<Label
-                    text="{i18n>fileTypeLabel}"
-                    labelFor="tipoArquivoFilter" />
-				<MultiComboBox
-                    id="tipoArquivoFilter"
-                    selectedKeys="{filtro>/TiposDoArquivo}"
-                    items="{tipos>/}"
-                    width="200px"
-                    selectionFinish=".aoFiltrar">
-					<core:Item
-                        key="{tipos>key}"
-                        text="{tipos>text}" />
-				</MultiComboBox>
-			</VBox>
+        <HBox alignItems="Center">
+            <Label
+                text="{i18n>fileTypeLabel}"
+                labelFor="tipoArquivoFilter"
+                class="sapUiTinyMarginEnd" />
+            <MultiComboBox
+                id="tipoArquivoFilter"
+                selectedKeys="{filtro>/TiposDoArquivo}"
+                items="{tipos>/}"
+                width="200px"
+                selectionFinish=".aoFiltrar"
+                class="sapUiTinyMarginEnd">
+                <core:Item
+                    key="{tipos>key}"
+                    text="{tipos>text}" />
+            </MultiComboBox>
 
-			<VBox class="sapUiTinyMarginEnd">
-				<Label
-                    text="{i18n>imageCreationDateColumn}"
-                    labelFor="dataCriacaoFilter" />
-				<DateRangeSelection
-                    id="dataCriacaoFilter"
-                    dateValue="{filtro>/dataDeCriacaoInicial}"
-                    secondDateValue="{filtro>/dataDeCriacaoFinal}"
-                    change=".aoFiltrar"
-                    displayFormat="dd/MM/yyyy"
-                    placeholder="{i18n>dateRangePlaceholder}"
-                    width="250px" />
-			</VBox>
+            <Label
+                text="{i18n>imageCreationDateColumn}"
+                labelFor="dataCriacaoFilter"
+                class="sapUiTinyMarginEnd" />
+            <DateRangeSelection
+                id="dataCriacaoFilter"
+                dateValue="{filtro>/dataDeCriacaoInicial}"
+                secondDateValue="{filtro>/dataDeCriacaoFinal}"
+                change=".aoFiltrar"
+                displayFormat="dd/MM/yyyy"
+                placeholder="{i18n>dateRangePlaceholder}"
+                width="250px"
+                class="sapUiTinyMarginEnd" />
 
-			<SearchField
-				placeholder="{i18n>searchPlaceholder}"
-				value="{filtro>/nomeDoArquivo}"
-				width="300px"
-				search=".aoFiltrar" />
-		</HBox>
-	</HBox>
+            <SearchField
+                placeholder="{i18n>searchPlaceholder}"
+                value="{filtro>/nomeDoArquivo}"
+                width="300px"
+                search=".aoFiltrar" />
+        </HBox>
+    </HBox>
 </core:FragmentDefinition>
