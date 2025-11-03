@@ -69,7 +69,12 @@ sap.ui.define([
         },
 
         notImplemented: function () {
-            MessageToast.show("Funcionalidade não implementada");
+            const texto = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle()
+                .getText("NotImplemented");
+
+            MessageToast.show(texto);
         }
     });
 });
