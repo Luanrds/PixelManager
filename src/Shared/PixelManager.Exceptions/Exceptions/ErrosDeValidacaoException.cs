@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using FluentValidation;
+using System.Net;
 
 namespace PixelManager.Exceptions.Exceptions;
 public class ErrosDeValidacaoException : PixelManagerExceptions
@@ -7,6 +8,13 @@ public class ErrosDeValidacaoException : PixelManagerExceptions
 	public ErrosDeValidacaoException(IList<string> mensagensDeErro) : base(string.Empty)
 	{
 		_mensagensDeErro = mensagensDeErro;
+	}
+
+	public ErrosDeValidacaoException(ValidationException exception) : base(string.Empty)
+	{
+		_mensagensDeErro = exception.Errors
+			.Select(e => e.ErrorMessage)
+			.ToList();
 	}
 
 	public override IList<string> GetMensagensDeErro() => _mensagensDeErro;
