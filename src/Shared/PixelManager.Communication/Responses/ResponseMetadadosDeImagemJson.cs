@@ -12,7 +12,7 @@ public class ResponseMetadadosDeImagemJson
     public float Proporcao { get; set; }
     public DateTime DataDeCriacao { get; set; }
 
-    public static ResponseMetadadosDeImagemJson ConvertaDe(MetadadosDeImagem entidade) =>
+    public static ResponseMetadadosDeImagemJson ConvertaDeEntidade(MetadadosDeImagem entidade) =>
         new()
         {
             Id = entidade.Id,

@@ -9,7 +9,7 @@ public class RequestMetadadosDeImagemJson
     public int Altura { get; set; }
     public int Comprimento { get; set; }
 
-    public MetadadosDeImagem ConverterParaEntidade() =>
+    public MetadadosDeImagem ConverterParaMetadadosDeImagem() =>
         new()
         {
             NomeDoArquivo = NomeDoArquivo,

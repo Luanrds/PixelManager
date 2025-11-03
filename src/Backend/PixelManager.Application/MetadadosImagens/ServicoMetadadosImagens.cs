@@ -1,5 +1,4 @@
-﻿using PixelManager.Application.Conversores;
-using PixelManager.Application.Validadores;
+﻿using PixelManager.Application.Validadores;
 using PixelManager.Communication.Request;
 using PixelManager.Communication.Responses;
 using PixelManager.Domain.Dto;
@@ -23,18 +22,18 @@ public class ServicoMetadadosImagens
     {
         _validatorDeMetadadosImagem.ValideOuLance(request);
 
-        var entidade = request.ConverterParaEntidade();
+        var entidade = request.ConverterParaMetadadosDeImagem();
 
         await _metadadosDeImagemRepository.Adicione(entidade);
 
-        return ResponseMetadadosDeImagemJson.ConvertaDe(entidade);
+        return ResponseMetadadosDeImagemJson.ConvertaDeEntidade(entidade);
     }
 
     public async Task<List<ResponseMetadadosDeImagemJson>> ObterTodos(DtoFiltroMetadadosDeImagem filtro)
     {
         var metadados = await _metadadosDeImagemRepository.ObterPorFiltroAsync(filtro);
 
-        return [.. metadados.Select(ResponseMetadadosDeImagemJson.ConvertaDe)];
+        return [.. metadados.Select(ResponseMetadadosDeImagemJson.ConvertaDeEntidade)];
     }
 
     public async Task<ResponseMetadadosDeImagemJson> ObterPorId(string id)
@@ -42,7 +41,7 @@ public class ServicoMetadadosImagens
         var metadados = await _metadadosDeImagemRepository.ObterPorId(id)
             ?? throw new RecursoNaoEncontradoException();
 
-        return ResponseMetadadosDeImagemJson.ConvertaDe(metadados);
+        return ResponseMetadadosDeImagemJson.ConvertaDeEntidade(metadados);
     }
 
     public async Task Atualizar(string id, RequestMetadadosDeImagemJson request)
