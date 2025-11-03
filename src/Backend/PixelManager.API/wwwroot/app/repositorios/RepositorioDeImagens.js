@@ -43,7 +43,7 @@
             }
 
             const queryString = params.toString();
-            return queryString || null;
+            return queryString;
         }
     };
 });
