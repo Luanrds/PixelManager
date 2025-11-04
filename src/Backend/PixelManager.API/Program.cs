@@ -11,19 +11,17 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AdicioneValidacoes();
-builder.Services.AdicioneInfraestrutura(builder.Configuration);
+builder.Services.AdicioneInfraestrutura();
 builder.Services.AddScoped<ServicoMetadadosImagens>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var origins = Environment.GetEnvironmentVariable("Cors_Origins")?.Split(";") ?? [];
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirFrontend", policy =>
     {
-        policy.WithOrigins(origins)
+        policy.WithOrigins("http://localhost:8081", "https://localhost:7232")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

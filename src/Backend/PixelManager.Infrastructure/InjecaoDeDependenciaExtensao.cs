@@ -9,7 +9,7 @@ namespace PixelManager.Infrastructure;
 
 public static class InjecaoDeDependenciaExtensao
 {
-    public static IServiceCollection AdicioneInfraestrutura(this IServiceCollection services, IConfiguration configuracao)
+    public static IServiceCollection AdicioneInfraestrutura(this IServiceCollection services)
     {
         services.AddSingleton<IDocumentStore>(_ =>
         {
