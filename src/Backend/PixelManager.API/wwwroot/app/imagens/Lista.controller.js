@@ -77,16 +77,14 @@ sap.ui.define([
             const filtro = this._obterFiltro();
             const response = await RepositorioDeImagens.obterTodos(filtro);
 
-            let itens = response || [];
-
-            itens.forEach(img => {
+            response.forEach(img => {
                 img.tipoDescricao = this._obterDescricaoDoTipo(img.tipoDoArquivo);
                 img.proporcaoDescricao = this._formatarDimensoes(img.comprimento, img.altura);
                 img.proporcaoDecimal = this.formatarProporcao(img.comprimento, img.altura);
                 img.dataCriacaoFormatada = this._formatarDataParaExibicao(img.dataDeCriacao);
             });
 
-            this.getView().getModel(NOME_MODELO_IMAGENS).setData({ items: itens });
+            this.getView().getModel(NOME_MODELO_IMAGENS).setData({ items: response });
         },
 
         _obterDescricaoDoTipo: function (tipo) {
