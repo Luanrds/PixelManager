@@ -2,7 +2,7 @@
 using CommomTestUtilities.Requests;
 using FluentAssertions;
 using Moq;
-using PixelManager.Application.UseCase.UseMetadadosDeImagem.Atualizar;
+using PixelManager.Application.MetadadosImagens;
 using PixelManager.Application.Validadores;
 using PixelManager.Domain.Repositorios;
 using PixelManager.Exceptions.Exceptions;
@@ -15,9 +15,9 @@ public class AtualizeMetadadosDeImagemUseCaseTest
 	{
 		var request = RequestMetadadosDeImagemJsonBuilder.Build();
 		var entidade = new PixelManager.Domain.Entidades.MetadadosDeImagem { Id = "123" };
-		var (useCase, repositoryMock) = CreateUseCase(entidade);
+		var (servico, repositoryMock) = CreateUseCase(entidade);
 
-		Func<Task> act = async () => await useCase.Execute(entidade.Id, request);
+		Func<Task> act = async () => await servico.Atualizar(entidade.Id, request);
 
 		await act.Should().NotThrowAsync();
 		repositoryMock.Verify(r => r.Atualize(It.IsAny<PixelManager.Domain.Entidades.MetadadosDeImagem>()), Times.Once);
@@ -32,9 +32,9 @@ public class AtualizeMetadadosDeImagemUseCaseTest
 		request.NomeDoArquivo = string.Empty;
 		var entidade = new PixelManager.Domain.Entidades.MetadadosDeImagem { Id = "123" };
 
-		var (useCase, repositoryMock) = CreateUseCase(entidade);
+		var (servico, repositoryMock) = CreateUseCase(entidade);
 
-		Func<Task> action = async () => await useCase.Execute(entidade.Id, request);
+		Func<Task> action = async () => await servico.Atualizar(entidade.Id, request);
 
 		(await action.Should().ThrowAsync<ErrosDeValidacaoException>())
 			.Where(e => e.GetMensagensDeErro().Count == 1 && e.GetMensagensDeErro().Contains("O nome do arquivo é obrigatório."));
@@ -47,25 +47,25 @@ public class AtualizeMetadadosDeImagemUseCaseTest
 	{
 		var request = RequestMetadadosDeImagemJsonBuilder.Build();
 
-		var (useCase, repositoryMock) = CreateUseCase(null);
+		var (servico, repositoryMock) = CreateUseCase(null);
 
-		Func<Task> action = async () => await useCase.Execute("idInexistente", request);
+		Func<Task> action = async () => await servico.Atualizar("idInexistente", request);
 
 		await action.Should().ThrowAsync<RecursoNaoEncontradoException>();
 
 		repositoryMock.Verify(r => r.Atualize(It.IsAny<PixelManager.Domain.Entidades.MetadadosDeImagem>()), Times.Never);
 	}
 
-	private static (AtualizeMetadadosDeImagemUseCase, Mock<IMetadadosDeImagemRepository>) CreateUseCase(PixelManager.Domain.Entidades.MetadadosDeImagem? entidade)
+	private static (ServicoMetadadosImagens, Mock<IMetadadosDeImagemRepository>) CreateUseCase(PixelManager.Domain.Entidades.MetadadosDeImagem? entidade)
 	{
 		var repositoryMock = MetadadosDeImagemRepositorybuilder.Build();
 		var validator = new MetadadosDeImagemValidator();
 
 		if (entidade is not null)
-			repositoryMock.Setup(r => r.ConsultePorId(entidade.Id)).ReturnsAsync(entidade);
+			repositoryMock.Setup(r => r.ObterPorId(entidade.Id)).ReturnsAsync(entidade);
 
-		var useCase = new AtualizeMetadadosDeImagemUseCase(repositoryMock.Object, validator);
+		var servico = new ServicoMetadadosImagens(repositoryMock.Object, validator);
 
-		return (useCase, repositoryMock);
+		return (servico, repositoryMock);
 	}
 }

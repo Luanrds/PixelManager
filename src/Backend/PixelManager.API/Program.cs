@@ -1,38 +1,55 @@
 using PixelManager.API.Filtros;
 using PixelManager.Application;
+using PixelManager.Application.MetadadosImagens;
 using PixelManager.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers(options =>
 {
-	options.Filters.Add(typeof(ExceptionFilter));
+    options.Filters.Add(typeof(ExceptionFilter));
 });
 
-builder.Services.AdicioneAplicacao();
+builder.Services.AdicioneValidacoes();
 builder.Services.AdicioneInfraestrutura();
+builder.Services.AddScoped<ServicoMetadadosImagens>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:8081", "https://localhost:7232")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true
+});
+
+app.UseCors("PermitirFrontend");
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
 
 public partial class Program
 {
-	protected Program() { }
+    protected Program() { }
 }
