@@ -68,7 +68,7 @@
             return promise;
         },
 
-        NaoImplementado: function () {
+        naoImplementado: function () {
             const texto = this.getOwnerComponent()
                 .getModel("i18n")
                 .getResourceBundle()

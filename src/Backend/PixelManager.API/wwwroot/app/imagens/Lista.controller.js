@@ -164,15 +164,15 @@ sap.ui.define([
         },
 
         onAddImagePress: function () {
-            this.NaoImplementado();
+            this.naoImplementado();
         },
 
         aoEditarImagem: function () {
-            this.NaoImplementado();
+            this.naoImplementado();
         },
 
         aoExcluirImagem: function () {
-            this.NaoImplementado();
+            this.naoImplementado();
         }
     });
 });
