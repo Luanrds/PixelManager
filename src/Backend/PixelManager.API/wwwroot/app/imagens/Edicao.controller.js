@@ -32,7 +32,6 @@ sap.ui.define([
             this._definirModeloDeControleDeTela();
             this._prepararValidacao();
             this.vincularRota("AdicionarImagem", this._aoCoincidirRotaDeCriacao);
-            this.vincularRota("EditarImagem", this._aoCoincidirRotaDeEdicao);
         },
 
         _modeloImagem: function (modelo) {
