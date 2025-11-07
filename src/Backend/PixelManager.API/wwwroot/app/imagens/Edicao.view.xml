@@ -1,0 +1,28 @@
+<mvc:View
+    controllerName="pixelmanager.app.imagens.Edicao"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+
+    <Page showNavButton="true" navButtonPress=".aoClicarEmRetornar">
+        <content>
+            <core:Fragment fragmentName="pixelmanager.app.fragmentos.DadosDaImagem" type="XML" />
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="{i18n>saveButtonText}"
+                    press=".aoClicarEmSalvar"
+                    type="Emphasized"
+                    width="80px"
+                    class="sapUiTinyMarginEnd"/>
+                <Button
+                    text="{i18n>cancelButtonText}"
+                    press=".aoClicarEmCancelar"
+                    type="Ghost"
+                    width="80px"/>
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>
