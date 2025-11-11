@@ -15,7 +15,7 @@ sap.ui.define([
         rotaListaDeImagens: ROTA_LISTA_IMAGENS,
 
         apiResponse: function () {
-            if (this._apiResponse === null || this._apiResponse === undefined) {
+            if (!this._apiResponse) {
                 this._apiResponse = new ApiResponse(this.resourceBundle());
             }
             return this._apiResponse;
@@ -59,7 +59,7 @@ sap.ui.define([
                 const nomeDoMetodoThen = "then";
                 const nomeDoTipo = "function";
 
-                if (resultado === null || resultado === undefined) {
+                if (!resultado) {
                     promise = Promise.resolve();
                 } else if (typeof (resultado[nomeDoMetodoThen]) !== nomeDoTipo) {
                     promise = Promise.resolve(resultado);
@@ -78,8 +78,6 @@ sap.ui.define([
 
             promise
                 .catch(x => {
-                    const inicioDoTexto = "Catch: ";
-                    console.log(inicioDoTexto, x.status);
                     return this.apiResponse()
                         .obterErro(x)
                         .then(erro => this._criarDialogoDeErro(erro));
