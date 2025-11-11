@@ -7,9 +7,9 @@ sap.ui.define([
         rotaAdicaoDeImagem: "AdicionarImagem",
 
         navegarParaAdicaoDeImagem: function () {
-            const zero = 0;
+            const ID_NOVA_IMAGEM = 0;
             return this.navegarPara(this.rotaAdicaoDeImagem, {
-                id: zero
+                id: ID_NOVA_IMAGEM
             });
         }
     });
