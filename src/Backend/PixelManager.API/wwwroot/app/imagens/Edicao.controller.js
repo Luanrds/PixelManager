@@ -15,6 +15,7 @@ sap.ui.define([
     const NOME_MODELO_IMAGEM = "imagens";
     const NOME_MODELO_TELA = "tela";
     const ARGUMENTOS_DA_ROTA = "arguments";
+    const ROTA_ADICIONAR_IMAGEM = "AdicionarImagem";
 
     const MODELO_IMAGEM_INICIAL = {
         nomeDoArquivo: "",
@@ -31,7 +32,7 @@ sap.ui.define([
             this._modeloImagem(new JSONModel({ ...MODELO_IMAGEM_INICIAL }));
             this._definirModeloDeControleDeTela();
             this._prepararValidacao();
-            this.vincularRota("AdicionarImagem", this._aoCoincidirRotaDeCriacao);
+            this.vincularRota(ROTA_ADICIONAR_IMAGEM, this._aoCoincidirRotaDeCriacao);
         },
 
         _modeloImagem: function (modelo) {
@@ -43,7 +44,10 @@ sap.ui.define([
         },
 
         _definirModeloDeControleDeTela: function () {
-            const titulo = this._imagemId ? "Editar Imagem" : "Nova Imagem";
+            const estaEditando = !!this._imagemId;
+            const chaveTitulo = estaEditando ? "imageEditTitle" : "imageCreateTitle";
+            const titulo = this.getTextOrName(chaveTitulo);
+
             this._modeloTela(new JSONModel({ titulo }));
         },
 
@@ -118,7 +122,7 @@ sap.ui.define([
             var validadorAltura = this._validador.validarParaCampo(altura, this._modeloImagem());
             var validadorComprimento = this._validador.validarParaCampo(comprimento, this._modeloImagem());
 
-            if (validadorNomeDoArquivo === false || validadorAltura === false || validadorComprimento === false) {
+            if (!validadorNomeDoArquivo || !validadorAltura || !validadorComprimento) {
                 const mensagem = "Validation.FillRequiredFields";
                 throw new Error(this.getTextOrName(mensagem));
             }
