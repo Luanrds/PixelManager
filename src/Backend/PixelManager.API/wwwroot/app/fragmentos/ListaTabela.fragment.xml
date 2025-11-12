@@ -33,8 +33,8 @@
         </columns>
 
         <items>
-            <ColumnListItem>
-                <cells>
+			<ColumnListItem type="Navigation" press=".aoClicarNoItem">
+				<cells>
                     <Text text="{images>nomeDoArquivo}" />
                     <Text text="{images>proporcaoDescricao}" />
                     <Text text="{images>proporcaoDecimal}" />
@@ -43,12 +43,12 @@
                     <HBox width="100%" justifyContent="Center">
                         <Button
                             icon="sap-icon://edit"
-                            press="onEditPress"
+                            press=".aoClicarEmEditar"
                             class="sapUiTinyMarginEnd" />
                         <Button
                             icon="sap-icon://delete"
                             type="Reject"
-                            press="onDeletePress" />
+                            press=".aoClicarEmExcluir" />
                     </HBox>
                 </cells>
             </ColumnListItem>
