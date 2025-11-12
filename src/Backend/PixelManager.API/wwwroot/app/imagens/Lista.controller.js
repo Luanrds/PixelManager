@@ -184,7 +184,7 @@ sap.ui.define([
         },
 
         aoClicarEmEditar: function (oEvent) {
-            const id = _obterIdDoEvento(oEvent);
+            const id = this._obterIdDoEvento(oEvent);
             this.exibirEspera(() => {
                 this.navegarParaEdicaoDeImagem(id);
             })
