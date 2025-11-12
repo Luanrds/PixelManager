@@ -5,6 +5,16 @@
     displayBlock="true">
     <Shell id="shell">
         <App id="app">
+            <Page id="mainPage" showHeader="true">
+                <customHeader>
+                    <OverflowToolbar>
+                        <Title text="{i18n>appTitle}" level="H1" />
+                    </OverflowToolbar>
+                </customHeader>
+                <content>
+                    <NavContainer id="navContainer" />
+                </content>
+            </Page>
         </App>
     </Shell>
 </mvc:View>

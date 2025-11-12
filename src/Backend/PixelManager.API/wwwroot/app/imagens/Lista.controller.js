@@ -1,10 +1,10 @@
 sap.ui.define([
-    "pixelmanager/app/BaseController",
+    "pixelmanager/app/imagens/ImagemBaseController",
     "sap/ui/model/json/JSONModel",
     "pixelmanager/app/repositorios/RepositorioDeImagens",
     "sap/ui/core/format/DateFormat",
     "pixelmanager/app/constantes/ConstantesDeImagem"
-], function (BaseController, JSONModel, RepositorioDeImagens, DateFormat, ConstantesDeImagem) {
+], function (ImagemBaseController, JSONModel, RepositorioDeImagens, DateFormat, ConstantesDeImagem) {
     "use strict";
 
     const NAMESPACE_LISTA = "pixelmanager.app.imagens.Lista";
@@ -14,7 +14,7 @@ sap.ui.define([
     const VALOR_NAO_INFORMADO = "-";
     const VALOR_VAZIO = "";
 
-    return BaseController.extend(NAMESPACE_LISTA, {
+    return ImagemBaseController.extend(NAMESPACE_LISTA, {
         oDateFormatExibicao: null,
         rotaListaDeImagens: "imagens",
 
@@ -161,8 +161,10 @@ sap.ui.define([
             });
         },
 
-        onAddImagePress: function () {
-            this.naoImplementado();
+        aoAdicionarImagem: function () {
+            return this.exibirEspera(() => {
+                this.navegarParaAdicaoDeImagem();
+            });
         },
 
         aoEditarImagem: function () {

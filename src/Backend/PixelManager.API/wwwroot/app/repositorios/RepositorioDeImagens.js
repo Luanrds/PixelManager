@@ -1,4 +1,4 @@
-﻿sap.ui.define([
+sap.ui.define([
     "pixelmanager/common/client/HttpApiClient"
 ], function (HttpApiClient) {
     "use strict";
@@ -6,6 +6,10 @@
     const API_BASE_URL = "/MetadadosDeImagem";
 
     return {
+        criar(payload) {
+            return HttpApiClient.post(API_BASE_URL, payload);
+        },
+
         obterTodos(filtro) {
             let url = API_BASE_URL;
 

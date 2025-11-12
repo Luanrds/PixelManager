@@ -4,7 +4,10 @@
     "id": "pixelmanager",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
-      "supportedLocales": [ "", "en" ],
+      "supportedLocales": [
+        "",
+        "en"
+      ],
       "fallbackLocale": ""
     },
     "title": "Pixel Manager",
@@ -45,7 +48,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "viewPath": "pixelmanager.app.imagens",
-        "controlId": "app",
+        "controlId": "navContainer",
         "controlAggregation": "pages",
         "async": true,
         "mode": "history"
@@ -60,12 +63,20 @@
           "pattern": "imagens:?query:",
           "name": "imagens",
           "target": "imagens"
+        },
+        {
+          "pattern": "imagens/0/adicionar",
+          "name": "AdicionarImagem",
+          "target": "editarImagem"
         }
       ],
       "targets": {
         "imagens": {
-          "viewName": "Lista",
-          "viewLevel": 1
+          "viewName": "Lista"
+        },
+        "editarImagem": {
+          "viewId": "editarImagem",
+          "viewName": "Edicao"
         }
       }
     }
