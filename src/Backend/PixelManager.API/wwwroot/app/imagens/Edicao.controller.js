@@ -16,6 +16,7 @@ sap.ui.define([
     const NOME_MODELO_TELA = "tela";
     const ARGUMENTOS_DA_ROTA = "arguments";
     const ROTA_ADICIONAR_IMAGEM = "AdicionarImagem";
+    const ROTA_EDITAR_IMAGEM = "EditarImagem";
 
     const MODELO_IMAGEM_INICIAL = {
         nomeDoArquivo: "",
@@ -33,6 +34,7 @@ sap.ui.define([
             this._definirModeloDeControleDeTela();
             this._prepararValidacao();
             this.vincularRota(ROTA_ADICIONAR_IMAGEM, this._aoCoincidirRotaDeCriacao);
+            this.vincularRota(ROTA_EDITAR_IMAGEM, this._aoCoincidirRotaDeEdicao);
         },
 
         _modeloImagem: function (modelo) {
@@ -48,7 +50,13 @@ sap.ui.define([
             const chaveTitulo = estaEditando ? "imageEditTitle" : "imageCreateTitle";
             const titulo = this.getTextOrName(chaveTitulo);
 
-            this._modeloTela(new JSONModel({ titulo }));
+            const dadosTela = { titulo: titulo, estaEditando: estaEditando, habilitarCampos: !estaEditando };
+            const modeloTela = this._modeloTela();
+            if (modeloTela) {
+                modeloTela.setData(dadosTela);
+            } else {
+                this._modeloTela(new JSONModel(dadosTela));
+            }
         },
 
         _aoCoincidirRotaDeCriacao: function () {
@@ -61,16 +69,17 @@ sap.ui.define([
 
         _aoCoincidirRotaDeEdicao: function (evento) {
             this.exibirEspera(async () => {
-                const id = evento.getParameter(ARGUMENTOS_DA_ROTA)?.id || null;
+                const args = evento.getParameter(ARGUMENTOS_DA_ROTA) || {};
+                const id = args?.id || null;
                 this._imagemId = id;
                 this._definirModeloDeControleDeTela();
                 if (this._imagemId) {
-                    const e = await RepositorioDeImagens.obterPorId(this._imagemId);
+                    const resposta = await RepositorioDeImagens.obterPorId(this._imagemId);
                     const dados = {
-                        NomeDoArquivo: e?.NomeDoArquivo ?? e?.nomeDoArquivo ?? "",
-                        TipoDoArquivo: e?.TipoDoArquivo ?? e?.tipoDoArquivo ?? 1,
-                        Altura: e?.Altura ?? e?.altura ?? null,
-                        Comprimento: e?.Comprimento ?? e?.comprimento ?? null
+                        nomeDoArquivo: resposta.nomeDoArquivo || "",
+                        tipo: (resposta.tipoDoArquivo != null ? resposta.tipoDoArquivo : 1),
+                        altura: resposta.altura || null,
+                        comprimento: resposta.comprimento || null
                     };
                     this._modeloImagem().setData(dados);
                 }
@@ -86,8 +95,12 @@ sap.ui.define([
                 Altura: modeloImagem.altura != null ? Number(modeloImagem.altura) : null,
                 Comprimento: modeloImagem.comprimento != null ? Number(modeloImagem.comprimento) : null
             };
-            return RepositorioDeImagens
-                .criar(payload)
+
+            const promise = this._imagemId 
+                ? RepositorioDeImagens.atualizar(this._imagemId, payload)
+                : RepositorioDeImagens.criar(payload);
+
+            return promise
                 .then(() => this.exibirMensagemDeSucesso(sucesso, () => this._aoClicarNoOkDaMensagemDeSucesso()));
         },
 
@@ -150,7 +163,7 @@ sap.ui.define([
         },
 
         _obterConfiguracoesDeRotaDeRetorno: function () {
-            const nomeRotaLista = this.rotaListaDeImagens || "imagens";
+            const nomeRotaLista = this.rotaListaDeImagens || NOME_MODELO_IMAGEM;
             return {
                 nomeDaRota: nomeRotaLista,
                 parametrosDaRota: null
