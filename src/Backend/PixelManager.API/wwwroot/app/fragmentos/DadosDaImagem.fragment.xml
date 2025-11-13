@@ -49,7 +49,8 @@
                         <Select
                             id="selectTipoDoArquivo"
                             selectedKey="{imagens>/tipo}"
-                            width="100%">
+                            width="100%"
+                            enabled="{tela>/habilitarCampos}">
                             <core:Item key="0" text="PNG" />
                             <core:Item key="1" text="JPG" />
                             <core:Item key="2" text="Bitmap" />
@@ -70,7 +71,8 @@
                             value="{imagens>/altura}"
                             width="100%"
                             placeholder="{i18n>heightPlaceholder}"
-                            type="Number" />
+                            type="Number"
+                            enabled="{tela>/habilitarCampos}" />
                     </VBox>
                     <VBox class="sapUiSmallMarginBottom">
                         <Label
@@ -82,7 +84,8 @@
                             value="{imagens>/comprimento}"
                             width="100%"
                             placeholder="{i18n>lengthPlaceholder}"
-                            type="Number" />
+                            type="Number"
+                            enabled="{tela>/habilitarCampos}" />
                     </VBox>
                 </VBox>
             </f:GridListItem>

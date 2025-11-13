@@ -13,6 +13,7 @@ sap.ui.define([
     const NOME_MODELO_TIPOS = "tipos";
     const VALOR_NAO_INFORMADO = "-";
     const VALOR_VAZIO = "";
+    const PROPERTY_ID = "id";
 
     return ImagemBaseController.extend(NAMESPACE_LISTA, {
         oDateFormatExibicao: null,
@@ -38,6 +39,10 @@ sap.ui.define([
 
         _modeloFiltro: function (data) {
             return this.modelo(NOME_MODELO_FILTRO, data);
+        },
+
+        _modeloImagem: function (data) {
+            return this.modelo(NOME_MODELO_IMAGENS, data)
         },
 
         _aoCorresponderRota: function (e) {
@@ -154,6 +159,10 @@ sap.ui.define([
             this.getRouter().navTo(this.rotaListaDeImagens, { query }, true);
         },
 
+        _obterIdDoEvento: function (oEvent) {
+            return oEvent.getSource().getBindingContext(NOME_MODELO_IMAGENS).getProperty(PROPERTY_ID)
+        },
+
         aoFiltrar: function () {
             return this.exibirEspera(() => {
                 this._atualizarUrlComFiltro();
@@ -167,11 +176,21 @@ sap.ui.define([
             });
         },
 
-        aoEditarImagem: function () {
-            this.naoImplementado();
+        aoClicarNoItem: function (oEvent) {
+            this.exibirEspera(() => {
+                const id = this._obterIdDoEvento(oEvent);
+                this.navegarParaEdicaoDeImagem(id);
+            });
         },
 
-        aoExcluirImagem: function () {
+        aoClicarEmEditar: function (oEvent) {
+            this.exibirEspera(() => {
+                const id = this._obterIdDoEvento(oEvent);
+                this.navegarParaEdicaoDeImagem(id);
+            })
+        },
+
+        aoClicarEmExcluir: function () {
             this.naoImplementado();
         }
     });

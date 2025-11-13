@@ -10,6 +10,16 @@ sap.ui.define([
             return HttpApiClient.post(API_BASE_URL, payload);
         },
 
+        obterPorId(id) {
+            const url = `${API_BASE_URL}/${id}`;
+            return HttpApiClient.get(url);
+        },
+
+        atualizar(id, payload) {
+            const url = `${API_BASE_URL}/${id}`;
+            return HttpApiClient.put(url, payload);
+        },
+
         obterTodos(filtro) {
             let url = API_BASE_URL;
 

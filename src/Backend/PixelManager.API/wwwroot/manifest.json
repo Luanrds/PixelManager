@@ -68,6 +68,11 @@
           "pattern": "imagens/0/adicionar",
           "name": "AdicionarImagem",
           "target": "editarImagem"
+        },
+        {
+          "pattern": "imagens/{id}/editar",
+          "name": "EditarImagem",
+          "target": "editarImagem"
         }
       ],
       "targets": {

@@ -18,6 +18,11 @@ sap.ui.define([], function () {
             return this._ajaxRequest(nomeDoMetodoHttpPost, endPoint, dados);
         },
 
+        put(endPoint, dados) {
+            const nomeDoMetodoHttpPut = "PUT";
+            return this._ajaxRequest(nomeDoMetodoHttpPut, endPoint, dados);
+        },
+
         _ajaxRequest(type, apiUrl, dados) {
             const parametrosFetch = this._obterParametrosDaRequisicao(type, dados);
             const chaveErroRequisicao = "requestError";
