@@ -190,8 +190,29 @@ sap.ui.define([
             })
         },
 
-        aoClicarEmExcluir: function () {
-            this.naoImplementado();
+        aoClicarEmExcluir: function (oEvent) {
+            this.exibirEspera(() => {
+                const textoSim = "confirmDeleteMessage";
+                const mensagem = this.getTextOrName(textoSim);
+                this._idImagemParaExcluir = this._obterIdDoEvento(oEvent);
+
+                this.exibirPopupConfirmacao({
+                    mensagem: mensagem,
+                    eventoDoBotaoSim: () => this.exibirEspera(() => this._deletar())
+                })
+            })
+        },
+
+        _deletar: function () {
+            const id = this._idImagemParaExcluir;
+            this._idImagemParaExcluir = null;
+
+            return RepositorioDeImagens
+                .excluir(id)
+                .then(() => {
+                    const mensagemDeletadoComSucesso = 'deletedSuccessfully';
+                    return this.exibirMensagemDeSucesso(mensagemDeletadoComSucesso, () => this._obterImagens());
+                });
         }
     });
 });
