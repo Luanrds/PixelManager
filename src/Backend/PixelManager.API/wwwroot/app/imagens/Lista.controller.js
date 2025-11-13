@@ -14,7 +14,7 @@ sap.ui.define([
     const VALOR_NAO_INFORMADO = "-";
     const VALOR_VAZIO = "";
     const PROPERTY_ID = "id";
-    
+
     return ImagemBaseController.extend(NAMESPACE_LISTA, {
         oDateFormatExibicao: null,
         rotaListaDeImagens: "imagens",
@@ -177,15 +177,15 @@ sap.ui.define([
         },
 
         aoClicarNoItem: function (oEvent) {
-            const id = this._obterIdDoEvento(oEvent);
             this.exibirEspera(() => {
+                const id = this._obterIdDoEvento(oEvent);
                 this.navegarParaEdicaoDeImagem(id);
             });
         },
 
         aoClicarEmEditar: function (oEvent) {
-            const id = this._obterIdDoEvento(oEvent);
             this.exibirEspera(() => {
+                const id = this._obterIdDoEvento(oEvent);
                 this.navegarParaEdicaoDeImagem(id);
             })
         },
