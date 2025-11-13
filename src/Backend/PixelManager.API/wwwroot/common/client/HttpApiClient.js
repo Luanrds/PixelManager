@@ -23,6 +23,11 @@ sap.ui.define([], function () {
             return this._ajaxRequest(nomeDoMetodoHttpPut, endPoint, dados);
         },
 
+        delete(endPoint) {
+            const nomeDoMetodoHttpDelete = "DELETE";
+            return this._ajaxRequest(nomeDoMetodoHttpDelete, endPoint);
+        },
+
         _ajaxRequest(type, apiUrl, dados) {
             const parametrosFetch = this._obterParametrosDaRequisicao(type, dados);
             const chaveErroRequisicao = "requestError";
