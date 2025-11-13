@@ -148,8 +148,8 @@ sap.ui.define([
                 textoConteudo: this.getTextOrName(traducao_mensagem),
                 title: this.getTextOrName(TEXTO_SUCESSO),
                 contentWidth: "40px",
-                textoBotaoEsquerdo: this.getTextOrName(TEXTO_OK),
-                botaoEsquerdo: evento || noop
+                textoBotaoDireito: this.getTextOrName(TEXTO_OK),
+                botaoDireito: evento || noop
             });
             this._setarI18nNoControle(dialogo);
             return dialogo.open();
