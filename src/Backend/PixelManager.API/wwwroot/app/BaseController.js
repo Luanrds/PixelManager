@@ -85,6 +85,26 @@ sap.ui.define([
                 .finally(() => this._carregamentoDaToolPageOuControle(false, busyControl));
         },
 
+        exibirPopupConfirmacao: function (parametros) {
+            const textoTitulo = "Common.Confirmacao";
+            const textoSim = "Common.Sim";
+            const textoNao = "Common.Nao";
+            const comprimento = "40px";
+            const noop = () => { };
+
+            var dialogo = new DialogoDeConfirmacao({
+                textoConteudo: this.getTextOrName(parametros.mensagem),
+                title: parametros.titulo || this.getTextOrName(textoTitulo),
+                contentWidth: comprimento,
+                textoBotaoEsquerdo: this.getTextOrName(textoSim),
+                textoBotaoDireito: this.getTextOrName(textoNao),
+                botaoEsquerdo: parametros.eventoDoBotaoSim || noop,
+                botaoDireito: parametros.eventoDoBotaoNao || noop
+            });
+            this._setarI18nNoControle(dialogo);
+            return dialogo.open();
+        },
+
         _criarDialogoDeErro: function (erro) {
             const falhaDeComunicacao = "failed to fetch";
             const traducaoDeFalhaDeComunicacao = "Common.FailedToRequestServer";
@@ -128,8 +148,8 @@ sap.ui.define([
                 textoConteudo: this.getTextOrName(traducao_mensagem),
                 title: this.getTextOrName(TEXTO_SUCESSO),
                 contentWidth: "40px",
-                textoBotaoDireito: this.getTextOrName(TEXTO_OK),
-                botaoDireito: evento || noop
+                textoBotaoEsquerdo: this.getTextOrName(TEXTO_OK),
+                botaoEsquerdo: evento || noop
             });
             this._setarI18nNoControle(dialogo);
             return dialogo.open();
