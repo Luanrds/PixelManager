@@ -194,19 +194,16 @@ sap.ui.define([
             this.exibirEspera(() => {
                 const textoSim = "confirmDeleteMessage";
                 const mensagem = this.getTextOrName(textoSim);
-                this._idImagemParaExcluir = this._obterIdDoEvento(oEvent);
+                const id = this._obterIdDoEvento(oEvent);
 
                 this.exibirPopupConfirmacao({
                     mensagem: mensagem,
-                    eventoDoBotaoSim: () => this.exibirEspera(() => this._deletar())
+                    eventoDoBotaoSim: () => this.exibirEspera(() => this._deletar(id))
                 })
             })
         },
 
-        _deletar: function () {
-            const id = this._idImagemParaExcluir;
-            this._idImagemParaExcluir = null;
-
+        _deletar: function (id) {
             return RepositorioDeImagens
                 .excluir(id)
                 .then(() => {
