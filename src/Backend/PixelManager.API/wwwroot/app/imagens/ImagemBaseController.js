@@ -7,9 +7,16 @@ sap.ui.define([
         _nomeModeloImagem: "imagem",
         rotaAdicaoDeImagem: "AdicionarImagem",
         rotaEdicaoDeImagem: "EditarImagem",
+        rotaDetalhesDeImagem: "DetalhesImagem",
 
         navegarParaEdicaoDeImagem: function (id) {
             return this.navegarPara(this.rotaEdicaoDeImagem, {
+                id: id
+            });
+        },
+
+        navegarParaDetalhesDeImagem: function (id) {
+            return this.navegarPara(this.rotaDetalhesDeImagem, {
                 id: id
             });
         },
@@ -19,6 +26,10 @@ sap.ui.define([
             return this.navegarPara(this.rotaAdicaoDeImagem, {
                 id: ID_NOVA_IMAGEM
             });
+        },
+
+        navegarParaListaDeImagens: function () {
+            return this.navegarPara(this.rotaListaDeImagens);
         }
     });
 });
