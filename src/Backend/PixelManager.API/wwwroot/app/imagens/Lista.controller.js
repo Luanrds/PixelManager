@@ -179,7 +179,7 @@ sap.ui.define([
         aoClicarNoItem: function (oEvent) {
             this.exibirEspera(() => {
                 const id = this._obterIdDoEvento(oEvent);
-                this.navegarParaEdicaoDeImagem(id);
+                this.navegarParaDetalhesDeImagem(id);
             });
         },
 
