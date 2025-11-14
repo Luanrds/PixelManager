@@ -73,6 +73,11 @@
           "pattern": "imagens/{id}/editar",
           "name": "EditarImagem",
           "target": "editarImagem"
+        },
+        {
+          "pattern": "imagens/{id}/detalhes",
+          "name": "DetalhesImagem",
+          "target": "detalhesImagem"
         }
       ],
       "targets": {
@@ -82,6 +87,10 @@
         "editarImagem": {
           "viewId": "editarImagem",
           "viewName": "Edicao"
+        },
+        "detalhesImagem": {
+          "viewId": "detalhesImagem",
+          "viewName": "Detalhes"
         }
       }
     }
