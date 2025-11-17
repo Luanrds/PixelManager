@@ -1,0 +1,147 @@
+<c:FragmentDefinition
+    xmlns:c="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <VBox class="sapUiMediumMargin">
+        <VBox class="sapUiMediumMarginBottom">
+            <HBox
+                justifyContent="SpaceBetween"
+                alignItems="Center">
+                <Title
+                    text="{imagem>/nomeDoArquivo}"
+                    level="H2" />
+            </HBox>
+        </VBox>
+
+        <l:Grid
+            defaultSpan="L6 M6 S12"
+            hSpacing="1"
+            vSpacing="1">
+
+            <VBox>
+                <f:Card
+                    width="100%"
+                    class="sapUiNoMargin">
+                    <f:header>
+                        <card:Header
+                            xmlns:card="sap.f.cards"
+                            title="{i18n>basicInformationTitle}"
+                            subtitle="{i18n>basicInformationSubtitle}"
+                            iconSrc="sap-icon://detail-view"
+                            iconDisplayShape="Circle"
+                            iconBackgroundColor="Accent6" />
+                    </f:header>
+                    <f:content>
+                        <VBox
+                            class="sapUiContentPadding sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiSmallMarginTop">
+                            <VBox class="sapUiMediumMarginBottom">
+                                <Label
+                                    text="{i18n>imageNameLabel}"
+                                    design="Bold"
+                                    class="sapUiTinyMarginBottom" />
+                                <Text
+                                    text="{imagem>/nomeDoArquivo}"
+                                    wrapping="true" />
+                            </VBox>
+                            <VBox class="sapUiMediumMarginBottom">
+                                <Label
+                                    text="{i18n>imageTypeLabel}"
+                                    design="Bold"
+                                    class="sapUiTinyMarginBottom" />
+                                <HBox alignItems="Center">
+                                    <ObjectStatus
+                                        text="{imagem>/tipoDescricao}"
+                                        state="Information" />
+                                </HBox>
+                            </VBox>
+                            <VBox>
+                                <Label
+                                    text="{i18n>imageCreationDateColumn}"
+                                    design="Bold"
+                                    class="sapUiTinyMarginBottom" />
+                                <HBox alignItems="Center">
+                                    <Text
+                                        text="{imagem>/dataCriacaoFormatada}"
+                                        class="sapUiMediumMarginBottom" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+
+            <VBox>
+                <f:Card
+                    width="100%"
+                    class="sapUiNoMargin">
+                    <f:header>
+                        <card:Header
+                            xmlns:card="sap.f.cards"
+                            title="{i18n>dimensionsTitle}"
+                            subtitle="{i18n>dimensionsSubtitle}"
+                            iconSrc="sap-icon://crop"
+                            iconDisplayShape="Circle"
+                            iconBackgroundColor="Accent1" />
+                    </f:header>
+                    <f:content>
+                        <VBox
+                            class="sapUiContentPadding sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiSmallMarginTop">
+                            <VBox class="sapUiMediumMarginBottom">
+                                <Label
+                                    text="{i18n>imageDimensionsColumn}"
+                                    design="Bold"
+                                    class="sapUiTinyMarginBottom" />
+                                <HBox alignItems="Center">
+                                    <ObjectStatus
+                                        text="{imagem>/proporcaoDescricao}"
+                                        state="Success" />
+                                </HBox>
+                            </VBox>
+                            <VBox class="sapUiMediumMarginBottom">
+                                <HBox>
+                                    <VBox width="50%" class="sapUiMediumMarginEnd">
+                                        <Label
+                                            text="{i18n>lengthLabel}"
+                                            design="Bold"
+                                            class="sapUiTinyMarginBottom" />
+                                        <ObjectNumber
+                                            number="{imagem>/comprimento}"
+                                            unit="px"
+                                            emphasized="true"
+                                            state="Information" />
+                                    </VBox>
+                                    <VBox width="50%">
+                                        <Label
+                                            text="{i18n>heightLabel}"
+                                            design="Bold"
+                                            class="sapUiTinyMarginBottom" />
+                                        <ObjectNumber
+                                            number="{imagem>/altura}"
+                                            unit="px"
+                                            emphasized="true"
+                                            state="Information" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            <VBox>
+                                <Label
+                                    text="{i18n>imageProportionColumn}"
+                                    design="Bold" class="sapUiTinyMarginBottom" />
+                                <HBox alignItems="Center">
+                                    <ObjectStatus
+                                        text="{imagem>/proporcaoDecimal}"
+                                        class="sapUiMediumMarginBottom"
+                                        state="Success" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+        </l:Grid>
+    </VBox>
+</c:FragmentDefinition>

@@ -71,7 +71,7 @@ sap.ui.define([
                     path: "/textoEsquerda",
                     formatter: this._formatarVisibilidade.bind(this)
                 },
-                type: sap.m.ButtonType.Ghost,
+                type: sap.m.ButtonType.Emphasized,
                 press: () => {
                     this._fecharDialogo(BOTAO_ESQUERDA_EVENTO);
                 }
@@ -83,7 +83,7 @@ sap.ui.define([
                     path: "/textoDireita",
                     formatter: this._formatarVisibilidade.bind(this)
                 },
-                type: sap.m.ButtonType.Emphasized,
+                type: sap.m.ButtonType.Ghost,
                 press: () => {
                     this._fecharDialogo(BOTAO_DIREITA_EVENTO);
                 }

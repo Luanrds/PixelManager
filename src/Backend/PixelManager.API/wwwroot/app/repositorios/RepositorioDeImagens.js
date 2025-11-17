@@ -20,6 +20,11 @@ sap.ui.define([
             return HttpApiClient.put(url, payload);
         },
 
+        excluir(id) {
+            const url = `${API_BASE_URL}/${id}`;
+            return HttpApiClient.delete(url);
+        },
+
         obterTodos(filtro) {
             let url = API_BASE_URL;
 

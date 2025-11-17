@@ -87,8 +87,8 @@ sap.ui.define([
         },
 
         _aoSalvarJson: function () {
+            const savedSuccessfully = "savedSuccessfully";
             const modeloImagem = this._modeloImagem().getData();
-            const sucesso = "savedSuccessfully";
             const payload = {
                 NomeDoArquivo: modeloImagem.nomeDoArquivo || "",
                 TipoDoArquivo: Number(modeloImagem.tipo),
@@ -96,18 +96,18 @@ sap.ui.define([
                 Comprimento: modeloImagem.comprimento != null ? Number(modeloImagem.comprimento) : null
             };
 
-            const promise = this._imagemId 
-                ? RepositorioDeImagens.atualizar(this._imagemId, payload)
+            const estaEditando = !!this._imagemId;
+            const promise = estaEditando
+                ? RepositorioDeImagens.atualizar(this._imagemId, payload).then(() => ({ id: this._imagemId }))
                 : RepositorioDeImagens.criar(payload);
 
             return promise
-                .then(() => this.exibirMensagemDeSucesso(sucesso, () => this._aoClicarNoOkDaMensagemDeSucesso()));
+                .then((resposta) => this.exibirMensagemDeSucesso(savedSuccessfully, () => this._aoClicarNoOkDaMensagemDeSucesso(resposta)));
         },
 
-        _aoClicarNoOkDaMensagemDeSucesso: function () {
+        _aoClicarNoOkDaMensagemDeSucesso: function (resposta) {
             this.exibirEspera(() => {
-                const cfg = this._obterConfiguracoesDeRotaDeRetorno();
-                return this.navegarPara(cfg.nomeDaRota, cfg.parametrosDaRota);
+                return this.navegarParaDetalhesDeImagem(resposta.id);
             });
         },
 

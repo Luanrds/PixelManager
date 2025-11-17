@@ -85,12 +85,52 @@ sap.ui.define([
                 .finally(() => this._carregamentoDaToolPageOuControle(false, busyControl));
         },
 
+        exibirDialogo: function (parametros) {
+            const noop = () => { };
+            const comprimento = "40px";
+
+            var configuracaoDialogo = {
+                textoConteudo: this.getTextOrName(parametros.mensagem),
+                title: parametros.titulo ? this.getTextOrName(parametros.titulo) : undefined,
+                contentWidth: parametros.largura || comprimento
+            };
+
+            if (parametros.textoBotaoEsquerdo) {
+                configuracaoDialogo.textoBotaoEsquerdo = this.getTextOrName(parametros.textoBotaoEsquerdo);
+                configuracaoDialogo.botaoEsquerdo = parametros.eventoDoBotaoEsquerdo || noop;
+            }
+
+            if (parametros.textoBotaoDireito) {
+                configuracaoDialogo.textoBotaoDireito = this.getTextOrName(parametros.textoBotaoDireito);
+                configuracaoDialogo.botaoDireito = parametros.eventoDoBotaoDireito || noop;
+            }
+
+            var dialogo = new DialogoDeConfirmacao(configuracaoDialogo);
+            this._setarI18nNoControle(dialogo);
+            return dialogo.open();
+        },
+
+        exibirPopupConfirmacao: function (parametros) {
+            const textoTitulo = "Common.Confirmacao";
+            const textoSim = "Common.Sim";
+            const textoNao = "Common.Nao";
+
+            return this.exibirDialogo({
+                mensagem: parametros.mensagem,
+                titulo: parametros.titulo || textoTitulo,
+                largura: parametros.largura,
+                textoBotaoEsquerdo: textoSim,
+                textoBotaoDireito: textoNao,
+                eventoDoBotaoEsquerdo: parametros.eventoDoBotaoSim,
+                eventoDoBotaoDireito: parametros.eventoDoBotaoNao
+            });
+        },
+
         _criarDialogoDeErro: function (erro) {
             const falhaDeComunicacao = "failed to fetch";
             const traducaoDeFalhaDeComunicacao = "Common.FailedToRequestServer";
             let mensagemMinusculo = erro.mensagem.toLowerCase();
-            const idDialogoDeErro = "apiErrorDialog";
-            var dialogo = new DialogoDeErro(idDialogoDeErro, {
+            var dialogo = new DialogoDeErro({
                 title: erro.titulo,
                 cabecalho: erro.textoCabecalho,
                 mensagem: mensagemMinusculo === falhaDeComunicacao ? this.getTextOrName(traducaoDeFalhaDeComunicacao) : erro.mensagem,
@@ -122,17 +162,13 @@ sap.ui.define([
         exibirMensagemDeSucesso: function (traducao_mensagem, evento) {
             const TEXTO_SUCESSO = "Success";
             const TEXTO_OK = "Common.OK";
-            const noop = () => { };
 
-            var dialogo = new DialogoDeConfirmacao({
-                textoConteudo: this.getTextOrName(traducao_mensagem),
-                title: this.getTextOrName(TEXTO_SUCESSO),
-                contentWidth: "40px",
-                textoBotaoDireito: this.getTextOrName(TEXTO_OK),
-                botaoDireito: evento || noop
+            return this.exibirDialogo({
+                mensagem: traducao_mensagem,
+                titulo: TEXTO_SUCESSO,
+                textoBotaoDireito: TEXTO_OK,
+                eventoDoBotaoDireito: evento
             });
-            this._setarI18nNoControle(dialogo);
-            return dialogo.open();
         },
 
         getResourceBundle: function () {
