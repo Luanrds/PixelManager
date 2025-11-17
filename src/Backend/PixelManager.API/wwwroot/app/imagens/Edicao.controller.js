@@ -87,8 +87,8 @@ sap.ui.define([
         },
 
         _aoSalvarJson: function () {
+            const savedSuccessfully = "savedSuccessfully";
             const modeloImagem = this._modeloImagem().getData();
-            const sucesso = "savedSuccessfully";
             const payload = {
                 NomeDoArquivo: modeloImagem.nomeDoArquivo || "",
                 TipoDoArquivo: Number(modeloImagem.tipo),
@@ -102,7 +102,7 @@ sap.ui.define([
                 : RepositorioDeImagens.criar(payload);
 
             return promise
-                .then((resposta) => this.exibirMensagemDeSucesso(sucesso, () => this._aoClicarNoOkDaMensagemDeSucesso(resposta)));
+                .then((resposta) => this.exibirMensagemDeSucesso(savedSuccessfully, () => this._aoClicarNoOkDaMensagemDeSucesso(resposta)));
         },
 
         _aoClicarNoOkDaMensagemDeSucesso: function (resposta) {

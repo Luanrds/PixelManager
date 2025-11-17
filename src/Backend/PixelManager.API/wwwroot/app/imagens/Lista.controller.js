@@ -192,23 +192,22 @@ sap.ui.define([
 
         aoClicarEmExcluir: function (oEvent) {
             this.exibirEspera(() => {
-                const textoSim = "confirmDeleteMessage";
-                const mensagem = this.getTextOrName(textoSim);
+                const confirmDeleteMessage = "confirmDeleteMessage";
                 const id = this._obterIdDoEvento(oEvent);
 
                 this.exibirPopupConfirmacao({
-                    mensagem: mensagem,
+                    mensagem: confirmDeleteMessage,
                     eventoDoBotaoSim: () => this.exibirEspera(() => this._deletar(id))
-                })
-            })
+                });
+            });
         },
 
         _deletar: function (id) {
+            const deletedSuccessfully = "deletedSuccessfully";
             return RepositorioDeImagens
                 .excluir(id)
                 .then(() => {
-                    const mensagemDeletadoComSucesso = 'deletedSuccessfully';
-                    return this.exibirMensagemDeSucesso(mensagemDeletadoComSucesso, () => this._obterImagens());
+                    return this.exibirMensagemDeSucesso(deletedSuccessfully, () => this._obterImagens());
                 });
         }
     });

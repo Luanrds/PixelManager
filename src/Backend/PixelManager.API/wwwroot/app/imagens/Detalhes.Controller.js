@@ -92,23 +92,22 @@ sap.ui.define([
 
         aoClicarEmExcluir: function () {
             this.exibirEspera(() => {
-                const textoSim = "confirmDeleteMessage";
-                const mensagem = this.getTextOrName(textoSim);
+                const confirmDeleteMessage = "confirmDeleteMessage";
                 const id = this._obterIdDaImagem();
 
                 this.exibirPopupConfirmacao({
-                    mensagem: mensagem,
+                    mensagem: confirmDeleteMessage,
                     eventoDoBotaoSim: () => this.exibirEspera(() => this._deletar(id))
                 });
             });
         },
 
         _deletar: function (id) {
+            const deletedSuccessfully = "deletedSuccessfully";
             return RepositorioDeImagens
                 .excluir(id)
                 .then(() => {
-                    const mensagemDeletadoComSucesso = 'deletedSuccessfully';
-                    return this.exibirMensagemDeSucesso(mensagemDeletadoComSucesso, () => this.navegarParaListaDeImagens());
+                    return this.exibirMensagemDeSucesso(deletedSuccessfully, () => this.navegarParaListaDeImagens());
                 });
         }
     });
