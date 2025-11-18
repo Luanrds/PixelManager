@@ -13,6 +13,21 @@ sap.ui.define([], function () {
             return this._ajaxRequest(NOME_METODO_HTTP_GET, endPoint);
         },
 
+        post(endPoint, dados) {
+            const nomeDoMetodoHttpPost = "POST";
+            return this._ajaxRequest(nomeDoMetodoHttpPost, endPoint, dados);
+        },
+
+        put(endPoint, dados) {
+            const nomeDoMetodoHttpPut = "PUT";
+            return this._ajaxRequest(nomeDoMetodoHttpPut, endPoint, dados);
+        },
+
+        delete(endPoint) {
+            const nomeDoMetodoHttpDelete = "DELETE";
+            return this._ajaxRequest(nomeDoMetodoHttpDelete, endPoint);
+        },
+
         _ajaxRequest(type, apiUrl, dados) {
             const parametrosFetch = this._obterParametrosDaRequisicao(type, dados);
             const chaveErroRequisicao = "requestError";
@@ -39,7 +54,7 @@ sap.ui.define([], function () {
                 }
             };
 
-            if (metodoHttp !== NOME_METODO_HTTP_GET && dados) {
+            if (metodoHttp !== NOME_METODO_HTTP_GET && dados != null) {
                 parametros.body = JSON.stringify(dados);
             }
 

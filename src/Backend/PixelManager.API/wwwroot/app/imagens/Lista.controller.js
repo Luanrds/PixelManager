@@ -1,10 +1,10 @@
 sap.ui.define([
-    "pixelmanager/app/BaseController",
+    "pixelmanager/app/imagens/ImagemBaseController",
     "sap/ui/model/json/JSONModel",
     "pixelmanager/app/repositorios/RepositorioDeImagens",
     "sap/ui/core/format/DateFormat",
     "pixelmanager/app/constantes/ConstantesDeImagem"
-], function (BaseController, JSONModel, RepositorioDeImagens, DateFormat, ConstantesDeImagem) {
+], function (ImagemBaseController, JSONModel, RepositorioDeImagens, DateFormat, ConstantesDeImagem) {
     "use strict";
 
     const NAMESPACE_LISTA = "pixelmanager.app.imagens.Lista";
@@ -13,8 +13,9 @@ sap.ui.define([
     const NOME_MODELO_TIPOS = "tipos";
     const VALOR_NAO_INFORMADO = "-";
     const VALOR_VAZIO = "";
+    const PROPERTY_ID = "id";
 
-    return BaseController.extend(NAMESPACE_LISTA, {
+    return ImagemBaseController.extend(NAMESPACE_LISTA, {
         oDateFormatExibicao: null,
         rotaListaDeImagens: "imagens",
 
@@ -38,6 +39,10 @@ sap.ui.define([
 
         _modeloFiltro: function (data) {
             return this.modelo(NOME_MODELO_FILTRO, data);
+        },
+
+        _modeloImagem: function (data) {
+            return this.modelo(NOME_MODELO_IMAGENS, data)
         },
 
         _aoCorresponderRota: function (e) {
@@ -154,6 +159,10 @@ sap.ui.define([
             this.getRouter().navTo(this.rotaListaDeImagens, { query }, true);
         },
 
+        _obterIdDoEvento: function (oEvent) {
+            return oEvent.getSource().getBindingContext(NOME_MODELO_IMAGENS).getProperty(PROPERTY_ID)
+        },
+
         aoFiltrar: function () {
             return this.exibirEspera(() => {
                 this._atualizarUrlComFiltro();
@@ -161,16 +170,45 @@ sap.ui.define([
             });
         },
 
-        onAddImagePress: function () {
-            this.naoImplementado();
+        aoAdicionarImagem: function () {
+            return this.exibirEspera(() => {
+                this.navegarParaAdicaoDeImagem();
+            });
         },
 
-        aoEditarImagem: function () {
-            this.naoImplementado();
+        aoClicarNoItem: function (oEvent) {
+            this.exibirEspera(() => {
+                const id = this._obterIdDoEvento(oEvent);
+                this.navegarParaDetalhesDeImagem(id);
+            });
         },
 
-        aoExcluirImagem: function () {
-            this.naoImplementado();
+        aoClicarEmEditar: function (oEvent) {
+            this.exibirEspera(() => {
+                const id = this._obterIdDoEvento(oEvent);
+                this.navegarParaEdicaoDeImagem(id);
+            })
+        },
+
+        aoClicarEmExcluir: function (oEvent) {
+            this.exibirEspera(() => {
+                const confirmDeleteMessage = "confirmDeleteMessage";
+                const id = this._obterIdDoEvento(oEvent);
+
+                this.exibirPopupConfirmacao({
+                    mensagem: confirmDeleteMessage,
+                    eventoDoBotaoSim: () => this.exibirEspera(() => this._deletar(id))
+                });
+            });
+        },
+
+        _deletar: function (id) {
+            const deletedSuccessfully = "deletedSuccessfully";
+            return RepositorioDeImagens
+                .excluir(id)
+                .then(() => {
+                    return this.exibirMensagemDeSucesso(deletedSuccessfully, () => this._obterImagens());
+                });
         }
     });
 });

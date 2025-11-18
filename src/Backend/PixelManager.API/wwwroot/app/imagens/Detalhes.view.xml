@@ -1,0 +1,27 @@
+<mvc:View
+    controllerName="pixelmanager.app.imagens.Detalhes"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+
+    <Page 
+        showNavButton="true" 
+        navButtonPress=".aoClicarEmRetornar"
+        title="{i18n>imageDetailsPageTitle}">
+        <headerContent>
+            <Button 
+                text="{i18n>deleteButtonText}"
+                icon="sap-icon://delete" 
+                press=".aoClicarEmExcluir"
+                type="Reject" />
+            <Button 
+                text="{i18n>editButtonText}"
+                icon="sap-icon://edit"
+                press=".aoClicarEmEditar"
+                type="Emphasized" />
+        </headerContent>
+        <content>
+            <core:Fragment fragmentName="pixelmanager.app.fragmentos.DetalhesImagem" type="XML" />
+        </content>
+    </Page>
+</mvc:View>

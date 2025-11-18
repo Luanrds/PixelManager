@@ -12,7 +12,7 @@
                 icon="sap-icon://add"
                 text="{i18n>addImageButtonText}"
                 type="Emphasized"
-                press=".onAddImagePress" />
+                press=".aoAdicionarImagem" />
         </HBox>
 
         <HBox alignItems="Center">
